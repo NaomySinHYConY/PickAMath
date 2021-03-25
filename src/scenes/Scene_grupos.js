@@ -61,7 +61,7 @@ class Scene_grupos extends Phaser.Scene {
 
         this.agregar.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this)
-            this.scene.start('Scene_agregarGrupos');
+            this.scene.start('Scene_agregarGrupo');
             this.next.play();
         });
 
