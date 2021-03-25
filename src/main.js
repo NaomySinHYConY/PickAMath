@@ -22,7 +22,7 @@ const config = {
         }
     },
     scene: [
-        Bootloader
+        Bootloader,Scene_inicio,Scene_login,Scene_registro,Scene_mapa,Scene_temas,Scene_nivel1,Scene_rancking,Scene_grupos,Scene_agregarGrupo
     ]
 };
 
