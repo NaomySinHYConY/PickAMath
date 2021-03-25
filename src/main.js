@@ -33,6 +33,7 @@ const config = {
     },
     scene: [
         Bootloader,Scene_login,Scene_registro,Scene_mapa,Scene_temas,Scene_nivel1,Scene_rancking,Scene_grupos,Scene_agregarGrupo
+        //Scene_nivel1,Bootloader,Scene_login,Scene_registro,Scene_mapa,Scene_temas,Scene_rancking,Scene_grupos,Scene_agregarGrupo
     ]
 };
 
