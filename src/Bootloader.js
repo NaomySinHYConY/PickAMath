@@ -23,9 +23,9 @@ class Bootloader extends Phaser.Scene {
     }
 
     create() {
-        //this.scene.start('Scene_mapa');
         
         this.titulo = this.add.image(100, 500, 'PAM');
+        this.scene.start('Scene_mapa');
     }
 }
 export default Bootloader;
