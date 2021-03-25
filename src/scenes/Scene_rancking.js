@@ -6,6 +6,7 @@ class Scene_rancking extends Phaser.Scene {
     preload() {
         console.log('Scene_rancking');
         this.load.setPath('./assets/');
+        
     }
 
     create() {
