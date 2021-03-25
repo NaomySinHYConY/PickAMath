@@ -11,7 +11,9 @@ class Scene_nivel1 extends Phaser.Scene {
         this.load.image('astro', '../astro.png');
         this.load.audio("nextSound", '../sonidos/glitch-1.mp3');
         this.load.audio("clicSound", '../sonidos/clic.mp3');
-        this.load.audio("hoverSound", '../sonidos/hoverResp.mp3');
+        this.load.audio("hoverSoundResp", '../sonidos/hoverResp.mp3');
+        this.load.audio("hoverSound", "../sonidos/whosh4.mp3");
+        this.load.audio("backSound", "../sonidos/glitch-2.mp3");
 
 
     }
@@ -32,16 +34,22 @@ class Scene_nivel1 extends Phaser.Scene {
             loop: false
         };
 
+        this.musicConf4 = {
+            volume: 0.3,
+            loop: false
+        };
+
         this.nextSound = this.sound.add("nextSound", this.musicConf1);
         let clicSound = this.sound.add("clicSound", this.musicConf2);
-        this.hoverSound = this.sound.add("hoverSound", this.musicConf3);
+        this.hoverSoundResp = this.sound.add("hoverSoundResp", this.musicConf3);
+        this.hoverSound = this.sound.add("hoverSound", this.musicConf4);
+        this.backSound = this.sound.add("backSound", this.musicConf1);
 
         
         this.respuestas = this.add.group();
 
         this.fondo = this.add.image(0, 0, 'fondo_nivel1', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
-        this.astro = this.add.image(0, 0, 'astro', 1).setOrigin(0).setInteractive().setScale(0.5);
         this.titulo = this.add.image(500, 30, 'titulo').setScale(0.6);
         this.tituloPAM = this.add.image(500, 58, 'tituloPAM').setScale(0.65);
         this.planet = this.add.image(0, 505, 'planet12 2').setOrigin(0).setScale(0.8);
@@ -56,6 +64,7 @@ class Scene_nivel1 extends Phaser.Scene {
         this.btn_Resp3 = this.add.image(1000, 430, 'btnResp').setScale(0.8).setInteractive()
         .setName('Resp3');
         this.Intentos = this.add.image(60, 45, 'Intentos').setOrigin(0).setScale(0.8);
+        this.astro = this.add.image(0, 0, 'astro', 1).setOrigin(0).setInteractive().setScale(0.5);
         this.operacion = this.add.image(550, 340, 'operacionEjemplo').setOrigin(0).setScale(0.8);
         this.numResp1 = this.add.image(175, 170, '250').setScale(0.8).setInteractive()
         .setName('numResp1');
@@ -76,17 +85,17 @@ class Scene_nivel1 extends Phaser.Scene {
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
                 this.numResp1.setScale(0.9);
-                this.hoverSound.play();
+                this.hoverSoundResp.play();
             } if (gameObject.name == 'Resp2') {
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
                 this.numResp2.setScale(0.9);
-                this.hoverSound.play();
+                this.hoverSoundResp.play();
             } if (gameObject.name == 'Resp3'){
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
                 this.numResp3.setScale(0.9);
-                this.hoverSound.play();
+                this.hoverSoundResp.play();
             }
         });
         this.input.on(eventos.GAMEOBJECT_OUT, (pointer, gameObject) => {
@@ -112,17 +121,38 @@ class Scene_nivel1 extends Phaser.Scene {
             });
         });
 
-        this.btn_Next.on(eventos.POINTER_OVER, function () 
+        this.btn_Next.on(eventos.POINTER_OVER,  () => 
         {  
-            this.setScale(0.9);
+            this.hoverSound.play();
+            this.btn_Next.setScale(0.9);
         });
-        this.btn_Next.on(eventos.POINTER_OUT, function () 
+        this.btn_Next.on(eventos.POINTER_OUT, () => 
         {  
-            this.setScale(0.8);
+            this.btn_Next.setScale(0.8);
         });
 
-        this.btn_Next.on(eventos.POINTER_DOWN, () => {
+        this.btn_Next.on(eventos.POINTER_DOWN, () => 
+        {
             this.nextSound.play();
+            this.scene.stop(this);
+            this.scene.start('Scene_rancking');
+        });
+
+        this.astro.on(eventos.POINTER_OVER, ()  =>
+        {  
+            this.hoverSound.play();
+            this.astro.setScale(0.6);
+        });
+        this.astro.on(eventos.POINTER_OUT, () => 
+        {  
+            this.astro.setScale(0.5);
+        });
+
+        this.astro.on(eventos.POINTER_DOWN, () => 
+        {
+            this.backSound.play();
+            this.scene.stop(this);
+            this.scene.start('Scene_login');
         });
 
         //Tweens
