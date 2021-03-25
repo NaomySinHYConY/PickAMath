@@ -9,7 +9,9 @@ class Scene_nivel1 extends Phaser.Scene {
         this.load.image(['fondo_nivel1', 'titulo', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Mush', 
         'speech', 'btnResp', 'Intentos', 'operacionEjemplo', '169','189', '250', 'planet12 2', 'next']);
         this.load.image('astro', '../astro.png');
-        //this.load.audio("nextSound", ["../sonidos/glitch-1.mp3"]);
+        this.load.audio("nextSound", '../sonidos/glitch-1.mp3');
+        this.load.audio("clicSound", '../sonidos/clic.mp3');
+        this.load.audio("hoverSound", '../sonidos/hoverResp.mp3');
 
 
     }
@@ -17,12 +19,25 @@ class Scene_nivel1 extends Phaser.Scene {
     create() {
         const eventos = Phaser.Input.Events;
 
-        /*this.musicConf1 = {
+        this.musicConf1 = {
             volume: 0.7,
             loop: false
         };
+        this.musicConf2 = {
+            volume: 0.9,
+            loop: false
+        };
+        this.musicConf3 = {
+            volume: 0.15,
+            loop: false
+        };
 
-        this.nextSound = this.sound.add("nextSound", this.musicConf1);*/
+        this.nextSound = this.sound.add("nextSound", this.musicConf1);
+        let clicSound = this.sound.add("clicSound", this.musicConf2);
+        this.hoverSound = this.sound.add("hoverSound", this.musicConf3);
+
+        
+        this.respuestas = this.add.group();
 
         this.fondo = this.add.image(0, 0, 'fondo_nivel1', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
@@ -49,44 +64,52 @@ class Scene_nivel1 extends Phaser.Scene {
         this.numResp3= this.add.image(175, 430, '169').setScale(0.8).setInteractive()
         .setName('numResp3');
         
-
+        this.respuestas.addMultiple([this.btn_Resp1, this.btn_Resp2, this.btn_Resp3]);
 
 
         this.txtNumOportunidades = this.add.text(215, 40, "?", 
         {font: '28px Rubik', fill: '#FF8139'});
 
+
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1'){
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
-                this.numResp1.setScale(0.9)
+                this.numResp1.setScale(0.9);
+                this.hoverSound.play();
             } if (gameObject.name == 'Resp2') {
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
-                this.numResp2.setScale(0.9)
+                this.numResp2.setScale(0.9);
+                this.hoverSound.play();
             } if (gameObject.name == 'Resp3'){
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
-                this.numResp3.setScale(0.9)
+                this.numResp3.setScale(0.9);
+                this.hoverSound.play();
             }
-
-                // this.hover_tarjeta.play();
-                // this.hover_tarjeta.volume = 1.8; 
         });
         this.input.on(eventos.GAMEOBJECT_OUT, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1'){
                 gameObject.clearTint();
                 gameObject.setScale(0.8);
-                this.numResp1.setScale(0.8)
+                this.numResp1.setScale(0.8);
             } if (gameObject.name == 'Resp2') {
                 gameObject.clearTint();
                 gameObject.setScale(0.8);
-                this.numResp2.setScale(0.8)
+                this.numResp2.setScale(0.8);
             } if (gameObject.name == 'Resp3'){
                 gameObject.clearTint();
                 gameObject.setScale(0.8);
-                this.numResp3.setScale(0.8)
+                this.numResp3.setScale(0.8);
             }
+        });
+
+        this.respuestas.children.iterate((resp) =>{
+            resp.on(eventos.POINTER_DOWN, function() {
+                this.setScale(0.7);
+                clicSound.play();
+            });
         });
 
         this.btn_Next.on(eventos.POINTER_OVER, function () 
@@ -99,7 +122,7 @@ class Scene_nivel1 extends Phaser.Scene {
         });
 
         this.btn_Next.on(eventos.POINTER_DOWN, () => {
-            //this.nextSound.play();
+            this.nextSound.play();
         });
 
         //Tweens
@@ -120,7 +143,7 @@ class Scene_nivel1 extends Phaser.Scene {
         this.tweenSpeech = this.add.tween({
             targets: [this.speech, this.operacion],
             ease: 'Linear',
-            time:2000,
+            time: 4000,
             repeat: 0,
             onStart: () => {
                 this.speech.alpha = 0.1;
