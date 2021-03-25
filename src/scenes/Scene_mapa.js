@@ -124,6 +124,12 @@ class Scene_mapa extends Phaser.Scene {
             }
         });
 
+        this.btonLast.on(eventos.POINTER_DOWN, () => {
+            this.scene.stop(this)
+            this.scene.start('Scene_grupos');
+            //this.next.play();
+        });
+
     }
 }
 export default Scene_mapa;

@@ -6,6 +6,8 @@ class Scene_agregarGrupo extends Phaser.Scene {
     preload() {
         console.log('Scene_agregarGrupo');
         this.load.setPath('./assets/');
+
+        
     }
 
     create() {
