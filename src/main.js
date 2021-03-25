@@ -8,6 +8,7 @@ import Scene_rancking from './scenes/Scene_rancking.js';
 import Scene_grupos from './scenes/Scene_grupos.js';
 import Scene_agregarGrupo from './scenes/Scene_agregarGrupo.js';
 
+
 const config = {
     title: "Pick-A-Math",
     version: "0.0.1",
@@ -19,6 +20,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
+    parent: "contenedor",
     backgroundColor: "#2E294E",
     pixelArt: false,
     physics: {
@@ -35,4 +37,4 @@ const config = {
     ]
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);
