@@ -7,26 +7,33 @@ class Scene_nivel1 extends Phaser.Scene {
         console.log('Scene_nivel1');
         this.load.setPath('./assets/nivel1');
         this.load.image(['fondo_nivel1', 'titulo', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Mush', 
-        'speech', 'btnResp', 'Intentos', 'operacionEjemplo', '169','189', '250']);
+        'speech', 'btnResp', 'Intentos', 'operacionEjemplo', '169','189', '250', 'planet12 2', 'next']);
         this.load.image('astro', '../astro.png');
-        this.load.image('planet', '../Planetas/planet12 2.png');
-        this.load.image('Next', '../Botones/next.png');
+        //this.load.audio("nextSound", ["../sonidos/glitch-1.mp3"]);
+
 
     }
 
     create() {
         const eventos = Phaser.Input.Events;
 
+        /*this.musicConf1 = {
+            volume: 0.7,
+            loop: false
+        };
+
+        this.nextSound = this.sound.add("nextSound", this.musicConf1);*/
+
         this.fondo = this.add.image(0, 0, 'fondo_nivel1', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
         this.astro = this.add.image(0, 0, 'astro', 1).setOrigin(0).setInteractive().setScale(0.5);
         this.titulo = this.add.image(500, 30, 'titulo').setScale(0.6);
         this.tituloPAM = this.add.image(500, 58, 'tituloPAM').setScale(0.65);
-        this.planet = this.add.image(0, 505, 'planet').setOrigin(0).setScale(0.8);
+        this.planet = this.add.image(0, 505, 'planet12 2').setOrigin(0).setScale(0.8);
         this.letrero = this.add.image(750, 10, 'EliminaEnemigos').setOrigin(0).setScale(0.75);
         this.mush = this.add.image(720, 0, 'Mush').setOrigin(0);
         this.speech = this.add.image(500, 260, 'speech').setOrigin(0);
-        this.btn_Next = this.add.image(900, 555, 'Next').setOrigin(0).setScale(0.8).setInteractive();
+        this.btn_Next = this.add.image(950, 600, 'next').setScale(0.8).setInteractive();
         this.btn_Resp1 = this.add.image(1000, 170, 'btnResp').setScale(0.8).setInteractive()
         .setName('Resp1');
         this.btn_Resp2 = this.add.image(0, 300, 'btnResp').setScale(0.8).setInteractive()
@@ -81,6 +88,21 @@ class Scene_nivel1 extends Phaser.Scene {
                 this.numResp3.setScale(0.8)
             }
         });
+
+        this.btn_Next.on(eventos.POINTER_OVER, function () 
+        {  
+            this.setScale(0.9);
+        });
+        this.btn_Next.on(eventos.POINTER_OUT, function () 
+        {  
+            this.setScale(0.8);
+        });
+
+        this.btn_Next.on(eventos.POINTER_DOWN, () => {
+            //this.nextSound.play();
+        });
+
+        //Tweens
 
         this.tweenMush = this.add.tween({
             targets: [this.mush],
