@@ -1,5 +1,6 @@
 import Bootloader from './Bootloader.js';
 
+
 const config = {
     title: "Pick-A-Math",
     version: "0.0.1",
@@ -11,6 +12,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
+    parent: "contenedor",
     backgroundColor: "#4834d4",
     pixelArt: false,
     physics: {
@@ -26,4 +28,4 @@ const config = {
     ]
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);

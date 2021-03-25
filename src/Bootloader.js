@@ -1,6 +1,12 @@
 class Bootloader extends Phaser.Scene {
     constructor() {
-        super('Bootloader'); 
+        super({
+            key: 'Bootloader'
+        });
+    }
+
+    init() {
+        console.log('Escena Bootloader');
     }
 
     preload() {
@@ -16,6 +22,7 @@ class Bootloader extends Phaser.Scene {
 
     create() {
         this.add.image(this.scale.width / 2, this.scale.height / 2, 'logo_gamma');
+        //this.scene.start('Scene_mapa');
     }
 }
 export default Bootloader;
