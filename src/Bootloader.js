@@ -13,6 +13,9 @@ class Bootloader extends Phaser.Scene {
         console.log('Bootloader');
         this.load.setPath('./assets/');
 
+        this.load.audio("whosh", "/sonidos/whosh4.mp3");
+        this.load.audio("next", "/sonidos/glitch-1.mp3");
+
         this.load.image('PAM', 'PAM.png');
         this.load.image('PickAMath', 'PickAMath.png');
         this.load.image('fondo','fondo.png');
@@ -21,6 +24,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image('galaxia','galaxia.png');
         this.load.image('play', '/Botones/play.png');
         this.load.image('registrar','/Botones/btn_registro.png');
+        this.load.image('docente','/Botones/docente.png');
 
         this.load.on('complete', () => {
             console.log('Load complete');
@@ -31,6 +35,17 @@ class Bootloader extends Phaser.Scene {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
+        this.musicConf = {
+            volume: 0.3,
+            loop: false
+        };
+        this.musicConf2 = {
+            volume: 0.7,
+            loop: false
+        };
+        this.whosh = this.sound.add("whosh", this.musicConf);
+        this.next = this.sound.add("next", this.musicConf2);
+
         this.titulo     = this.add.image(500, 270, 'PAM').setDepth(2);
         this.titulo_2   = this.add.image(500,350,"PickAMath").setDepth(2);
         this.galaxia    = this.add.image(640,330,"galaxia").setScale(0.70).setInteractive().setDepth(0);
@@ -38,11 +53,16 @@ class Bootloader extends Phaser.Scene {
         this.astro      = this.add.image(750,280,"astro").setDepth(2).setInteractive();
         this.play       = this.add.image(500,550,"play").setInteractive().setName('play').setDepth(2);
         this.registrar  = this.add.image(900,50,'registrar').setInteractive().setName('registrar').setDepth(2);
+        this.cat        = this.add.image(130,400,"cat").setDepth(2);
+        this.docente    = this.add.image(900,580,"docente").setDepth(2).setInteractive().setName('docente').setScale(0.50);
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'play' || gameObject.name == 'registrar'){
-                //this.hover.play(this.musicConf2);
                 gameObject.setScale(1.10);
+                this.whosh.play();
+            }else if(gameObject.name == 'docente'){
+                gameObject.setScale(0.80);
+                this.whosh.play();
             }
         });
 
@@ -50,31 +70,27 @@ class Bootloader extends Phaser.Scene {
             if(gameObject.name == 'play' || gameObject.name == 'registrar'){
                 //this.hover.play(this.musicConf2);
                 gameObject.setScale(1);
+            }else if(gameObject.name == 'docente'){
+                gameObject.setScale(0.50);
             }
         });
 
         this.play.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this)
+            this.scene.start('Scene_login');
+            this.next.play();
+        });
 
-            this.scene.transition({
-                target: 'Scene_login',
-                duration: 4000,
-                moveBelow: true,
-                onUpdate: this.transitionOut,
-                data: { x: 500, y: 320 }
-            });
+        this.docente.on(eventos.POINTER_DOWN, () => {
+            this.scene.stop(this)
+            this.scene.start('Scene_grupos');
+            this.next.play();
         });
 
         this.registrar.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this);
-            
-            this.scene.transition({
-                target: 'Scene_registro',
-                duration: 4000,
-                moveBelow: true,
-                onUpdate: this.transitionOut,
-                data: { x: 500, y: 320 }
-            });
+            this.scene.start('Scene_registro');
+            this.next.play();
         });
         /*
         this.tweens2 = this.add.tween({
