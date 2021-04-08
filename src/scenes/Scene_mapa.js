@@ -40,10 +40,10 @@ class Scene_mapa extends Phaser.Scene {
 
         this.instrucciones = this.add.image(900,50,'elige');
 
-        this.astro = this.add.image(40, 50, 'astro').setScale(0.15);
+        this.astro = this.add.image(40, 50, 'astro').setScale(0.32);
 
         //Botón de avance
-        this.btonNext = this.add.image(950, 600,'next').setScale(0.25).setInteractive().setName('next');
+        this.btonNext = this.add.image(950, 600,'next').setScale(0.8).setInteractive().setName('next');
         this.btonNext.on(eventos.POINTER_OVER, function () 
         {  
             this.scaleX += 0.07;
@@ -55,7 +55,7 @@ class Scene_mapa extends Phaser.Scene {
             this.scaleY -= 0.07;
         });
 
-        this.btonLast = this.add.image(50, 600,'next').setScale(0.25).setInteractive().setName('last').setFlipX(true);
+        this.btonLast = this.add.image(50, 600,'next').setScale(0.8).setInteractive().setName('last').setFlipX(true);
         this.btonLast.on(eventos.POINTER_OVER, function () 
         {  
             this.scaleX += 0.07;
