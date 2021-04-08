@@ -32,6 +32,9 @@ class Bootloader extends Phaser.Scene {
     }
 
     create() {
+        
+        //this.titulo = this.add.image(100, 500, 'PAM');
+        // Escena del mapa : this.scene.start('Scene_mapa');
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
