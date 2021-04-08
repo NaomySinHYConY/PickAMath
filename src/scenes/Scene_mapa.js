@@ -43,19 +43,19 @@ class Scene_mapa extends Phaser.Scene {
         this.astro = this.add.image(40, 50, 'astro').setScale(0.32);
 
         //Botón de avance
-        this.btonNext = this.add.image(950, 600,'next').setScale(0.8).setInteractive().setName('next');
-        this.btonNext.on(eventos.POINTER_OVER, function () 
-        {  
-            this.scaleX += 0.07;
-            this.scaleY += 0.07;
-        });
-        this.btonNext.on(eventos.POINTER_OUT, function () 
-        {  
-            this.scaleX -= 0.07;
-            this.scaleY -= 0.07;
-        });
+        //this.btonNext = this.add.image(950, 600,'next').setScale(0.23).setInteractive().setName('next');
+        //this.btonNext.on(eventos.POINTER_OVER, function () 
+        //{  
+        //    this.scaleX += 0.07;
+        //    this.scaleY += 0.07;
+        //});
+        // this.btonNext.on(eventos.POINTER_OUT, function () 
+        // {  
+        //     this.scaleX -= 0.07;
+        //     this.scaleY -= 0.07;
+        // });
 
-        this.btonLast = this.add.image(50, 600,'next').setScale(0.8).setInteractive().setName('last').setFlipX(true);
+        this.btonLast = this.add.image(50, 600,'next').setScale(0.23).setInteractive().setName('last').setFlipX(true);
         this.btonLast.on(eventos.POINTER_OVER, function () 
         {  
             this.scaleX += 0.07;
@@ -71,24 +71,24 @@ class Scene_mapa extends Phaser.Scene {
 
         this.planetas = this.add.group();
 
-        this.dobleAnilloP = this.add.image(165, 224, 'planet9').setScale(0.16).setRotation(0.5).setInteractive();
+        this.dobleAnilloP = this.add.image(165, 224, 'planet9').setScale(0.16).setRotation(0.5).setName('planet9Det');
         //this.dobleAnilloP = this.add.image(0, 0, 'planet9').setInteractive();
 
-        this.fucsiaP = this.add.image(170, 480, 'planet5').setScale(0.24);
+        this.fucsiaP = this.add.image(170, 480, 'planet5').setScale(0.24).setName('planet5Det');
 
-        this.tierraP = this.add.image(380, 360, 'planet4').setScale(0.14);
+        this.tierraP = this.add.image(380, 360, 'planet4').setScale(0.14).setName('planet4Det');
         
-        this.robotP = this.add.image(500, 210, 'planet6').setScale(0.17);
+        this.robotP = this.add.image(500, 210, 'planet6').setScale(0.17).setName('planet6Det');
         
-        this.huecosP = this.add.image(490, 540,'planet7').setScale(0.18);
+        this.huecosP = this.add.image(490, 540,'planet7').setScale(0.18).setName('planet7Det');
         
-        this.hieloP = this.add.image(640, 370, 'planet1').setScale(0.15);
+        this.hieloP = this.add.image(640, 370, 'planet1').setScale(0.15).setName('planet1Det');
         
-        this.slimeP = this.add.image(810, 200,'planet3').setScale(0.16);
+        this.slimeP = this.add.image(810, 200,'planet3').setScale(0.16).setName('planet3Det');
 
-        this.cascaraP = this.add.image(880, 370, 'planet2').setScale(0.14);
+        this.cascaraP = this.add.image(880, 370, 'planet2').setScale(0.14).setName('planet2Det');
         
-        this.saturnoP = this.add.image(780, 540, 'planet8').setScale(0.14).setFlipX(true);
+        this.saturnoP = this.add.image(780, 540, 'planet8').setScale(0.14).setFlipX(true).setName('planet8Det');
 
         this.planetas.addMultiple([this.dobleAnilloP, this.fucsiaP, this.tierraP, this.robotP, this.huecosP, this.hieloP, this.slimeP, this.cascaraP, this.saturnoP]);
 
@@ -116,6 +116,8 @@ class Scene_mapa extends Phaser.Scene {
             }
             else
             {
+                this.scene.stop(this)
+                this.scene.start('Scene_detallesCat', gameObject.name);
                 //Al ser un planeta, debe mostrar la información correspondiente a su categoría
                 // this.planetas.children.iterate((planet) =>{
                 //     planet.setAlpha(0.6);
@@ -129,7 +131,6 @@ class Scene_mapa extends Phaser.Scene {
             this.scene.start('Scene_grupos');
             //this.next.play();
         });
-
     }
 }
 export default Scene_mapa;

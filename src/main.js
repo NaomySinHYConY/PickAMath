@@ -7,6 +7,7 @@ import Scene_nivel1 from './scenes/Scene_nivel1.js';
 import Scene_rancking from './scenes/Scene_rancking.js';
 import Scene_grupos from './scenes/Scene_grupos.js';
 import Scene_agregarGrupo from './scenes/Scene_agregarGrupo.js';
+import Scene_detallesCat from './scenes/Scene_detallesCat.js';
 
 
 const config = {
@@ -32,7 +33,7 @@ const config = {
         }
     },
     scene: [
-        Bootloader,Scene_login,Scene_registro,Scene_mapa,Scene_temas,Scene_nivel1,Scene_rancking,Scene_grupos,Scene_agregarGrupo
+        Bootloader,Scene_login,Scene_registro,Scene_mapa,Scene_detallesCat ,Scene_temas,Scene_nivel1,Scene_rancking,Scene_grupos,Scene_agregarGrupo
     ]
 };
 
