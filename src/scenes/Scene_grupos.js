@@ -62,19 +62,19 @@ class Scene_grupos extends Phaser.Scene {
         this.agregar.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this)
             this.scene.start('Scene_agregarGrupo');
-            this.next.play();
+            //this.next.play();
         });
 
-        this.btn_actividades.on(eventos.POINTER_DOWN, () => {
+        this.btn_actividades.on(eventos.POINTER_UP, () => {
             this.scene.stop(this)
             this.scene.start('Scene_mapa');
-            this.next.play();
+            //this.next.play();
         });
 
         this.back.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this)
             this.scene.start('Scene_login');
-            this.bback.play();
+            //this.bback.play();
         });
 
     }
