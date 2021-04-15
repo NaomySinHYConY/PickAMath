@@ -54,7 +54,6 @@ class Bootloader extends Phaser.Scene {
 
         function ingresarGoogle(){
             var res = false;
-            var NuevoUsuario = new Usuario();
             var provider = new firebase.auth.GoogleAuthProvider();
             provider.addScope("https://www.googleapis.com/auth/userinfo.email");
                 
@@ -64,6 +63,38 @@ class Bootloader extends Phaser.Scene {
                 // The signed-in user info.
                 var user = result.user;            
                 console.log(user);
+
+                var usuario = firebase.auth().currentUser;
+                if(usuario != null){
+                    var nombre      = usuario.displayName;
+                    var email       = usuario.email;
+                    var userId      = usuario.uid;
+                    var imageURL  = usuario.photoURL;
+                    console.log(nombre);
+                    console.log(email);
+                    var NuevoUsuario = new Usuario(nombre,email, userId,imageURL);
+                    
+                    firebase.database().ref('usuarios/' + NuevoUsuario.id).set({
+                        username: NuevoUsuario.nombre,
+                        email: NuevoUsuario.correo,
+                        profile_picture : NuevoUsuario.photo
+                    }, (error) => {
+                        if (error) {
+                            // The write failed...
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            
+                        } else {
+                          // Data saved successfully!
+                          alert('Usuario '+ NuevoUsuario.nombre + ' insertado');
+                          
+                        }
+                    });
+                }
+                else
+                {
+                    return res = false;
+                }
             });
 
             /*
