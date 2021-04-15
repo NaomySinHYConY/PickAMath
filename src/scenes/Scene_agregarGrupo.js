@@ -14,7 +14,7 @@ class Scene_agregarGrupo extends Phaser.Scene {
         this.load.image('logo', 'logo.png');
         this.load.image('btn_claves','/Grupo/btn_claves.png');
         this.load.image('formularioGrupo','/Grupo/formularioGrupo.png');
-        this.load.image('descargar','/Botones/descargar.png');
+        //this.load.image('descargar','/Botones/descargar.png');
         this.load.image('back','back.png');
         this.load.image('tnuevoGrupo','/Grupo/tnuevoGrupo.png');
 
@@ -59,12 +59,15 @@ class Scene_agregarGrupo extends Phaser.Scene {
 
         this.btn_claves.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this);
+            //Corregir acá
+            this.scene.start('Scene_grupos');
             this.next.play();
         });
 
         this.cancelarG.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this);
-            this.next.play();
+            this.scene.start('Scene_grupos');
+            this.bback.play();
         });
 
         this.back.on(eventos.POINTER_DOWN, () => {

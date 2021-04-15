@@ -60,11 +60,13 @@ class Scene_registro extends Phaser.Scene {
 
         this.guardar.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this);
+            this.scene.start('Bootloader');
             this.next.play();
         });
 
         this.cancelar.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this);
+            this.scene.start('Bootloader');
             this.next.play();
         });
 
