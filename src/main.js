@@ -35,6 +35,9 @@ const config = {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     parent: "contenedor",
+    dom: {
+        createContainer: true
+    },
     backgroundColor: "#2E294E",
     pixelArt: false,
     physics: {
