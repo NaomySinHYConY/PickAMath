@@ -3,6 +3,27 @@ class Scene_nivel1 extends Phaser.Scene {
         super('Scene_nivel1'); 
     }
 
+    init(code){
+        var categoria = this.add.text(150, 575, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
+        categoria.setDepth(5);
+        var database = firebase.database();
+        database.ref().child("grupos").child(code).get().then(function(snapshot) {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                    
+                var rescategoria = snapshot.val().Categoria;
+                console.log("Categoria: " + rescategoria);
+                categoria.setText("Categoria: " + rescategoria);
+            }
+            else {
+              console.log("No data available");
+            }
+        }).catch(function(error) {
+            console.error(error);
+        });
+
+    }
+
     preload() {
         console.log('Scene_nivel1');
         this.load.setPath('./assets/nivel1');
@@ -216,8 +237,45 @@ class Scene_nivel1 extends Phaser.Scene {
                 this.numResp2.alpha = 1;
              },
         });
+  /*      
+        var categoria = this.add.text(150, 570, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
+        var database = firebase.database();
+        database.ref().child("grupos").child(codigo).get().then(function(snapshot) {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                    
+                var rescategoria = snapshot.val().Categoria;
+                console.log("Categoria: " + rescategoria);
+                categoria.setText("Categoria: " + rescategoria);
+            }
+            else {
+              console.log("No data available");
+            }
+        }).catch(function(error) {
+            console.error(error);
+        });
+*/
+        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
+        var nivelAvance = this.add.text(150, 600, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
         
-       
+        firebase.auth().onAuthStateChanged(function(usuario) {
+            if (usuario) {
+                var nombre      = usuario.displayName;
+                var email       = usuario.email;
+                var userId      = usuario.uid;
+                var imageURL  = usuario.photoURL;
+                console.log(nombre);
+                console.log(email);
+                
+                nombreAlumno.setText(nombre);
+                nivelAvance.setText("Nivel: 1");
+                //var codigoClase = document.getElementById('codigoclase').value;
+                //buscarCodigoGrupo(codigoClase);
+                //categoria.setText();
+            } else {
+              // No user is signed in.
+            }
+        });
     }
 }
 export default Scene_nivel1;

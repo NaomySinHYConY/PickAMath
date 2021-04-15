@@ -38,6 +38,70 @@ class Bootloader extends Phaser.Scene {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
+         class Usuario{
+            constructor(nombre, correo, id, photo) {
+                this.nombre = nombre;
+                this.correo = correo;
+                this.id = id;
+                this.photo = photo;
+            }
+        }
+
+        function datosUsuario(nombre,email, userId,imageURL){
+            var NuevoUsuario = new Usuario(nombre,email, userId,imageURL);
+            return NuevoUsuario;
+        }
+
+        function ingresarGoogle(){
+            var res = false;
+            var NuevoUsuario = new Usuario();
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope("https://www.googleapis.com/auth/userinfo.email");
+                
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;            
+                console.log(user);
+            });
+
+            /*
+            var usuario = firebase.auth().currentUser;
+                if(usuario != null){
+                    var nombre      = usuario.displayName;
+                    var email       = usuario.email;
+                    var userId      = usuario.uid;
+                    var imageURL  = usuario.photoURL;
+                    console.log(nombre);
+                    console.log(email);
+                    NuevoUsuario.nombre = nombre;
+                    NuevoUsuario.email = email;
+                    NuevoUsuario.userId = userId;
+                    NuevoUsuario.imageURL = imageURL;
+                    return res = true;    
+                }
+                else
+                {
+                    return res = false;
+                }*/
+        }
+
+        function usuarioConectado(){
+            firebase.auth().onAuthStateChanged(function(usuario) {
+                if (usuario) {
+                    var nombre      = usuario.displayName;
+                    var email       = usuario.email;
+                    var userId      = usuario.uid;
+                    var imageURL  = usuario.photoURL;
+                    console.log(nombre);
+                    console.log(email);
+                } else {
+                  // No user is signed in.
+                }
+              });
+        }
+
         this.musicConf = {
             volume: 0.3,
             loop: false
@@ -79,7 +143,8 @@ class Bootloader extends Phaser.Scene {
         });
 
         this.play.on(eventos.POINTER_DOWN, () => {
-            this.scene.stop(this)
+            ingresarGoogle();
+            this.scene.stop(this);
             this.scene.start('Scene_login');
             this.next.play();
         });
