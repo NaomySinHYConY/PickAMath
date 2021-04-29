@@ -7,6 +7,8 @@ class Scene_registro extends Phaser.Scene {
         console.log('Scene_registro');
         this.load.setPath('./assets/');
 
+        this.load.image('barra',"barra.png");
+
         this.load.audio("whosh", "/sonidos/whosh4.mp3");
         this.load.audio("next", "/sonidos/glitch-1.mp3");
 
@@ -42,6 +44,7 @@ class Scene_registro extends Phaser.Scene {
         this.guardar        = this.add.image(830,600,"guardar").setInteractive().setName('guardar').setDepth(2);
         this.tnuevoUsuario  = this.add.image(500,45,"tnuevoUsuario").setDepth(2);
         this.logo           = this.add.image(110,45,"logo").setScale(0.80).setDepth(2);
+        this.barra          = this.add.image(500,25,"barra").setDepth(1);
         this.cancelar       = this.add.image(610,600,"cancelar").setInteractive().setName('cancelar').setDepth(2);
 
         this.registerform = this.add.dom(500, 500).createFromCache('nameform');

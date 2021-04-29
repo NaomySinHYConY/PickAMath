@@ -14,7 +14,7 @@ class Scene_login extends Phaser.Scene {
         this.load.image('logo', 'logo.png');
         this.load.image('alien','alien.png');
         this.load.image('back','back.png');
-
+       
         this.load.audio("bback", "/sonidos/glitch-2.mp3");
 
         this.load.html('loginform', 'txt/loginform.html');
@@ -70,6 +70,7 @@ class Scene_login extends Phaser.Scene {
         this.registrar      = this.add.image(900,50,'registrar').setInteractive().setName('registrar').setDepth(2);
         this.alien          = this.add.image(75,560,"alien").setInteractive();
         this.play           = this.add.image(510,550,"play").setInteractive().setName('play').setDepth(2).setScale(0.8);
+        
         
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'play' || gameObject.name == 'registrar' || gameObject.name == 'back'){
