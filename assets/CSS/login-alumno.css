@@ -1,3 +1,7 @@
+*{
+    margin: 0px;
+    top:auto;
+}
 
 body {
     background-color: #2c3e50;
