@@ -60,6 +60,7 @@ class Scene_nivel1 extends Phaser.Scene {
             loop: false
         };
 
+
         this.nextSound = this.sound.add("nextSound", this.musicConf1);
         let clicSound = this.sound.add("clicSound", this.musicConf2);
         this.hoverSoundResp = this.sound.add("hoverSoundResp", this.musicConf3);
@@ -86,13 +87,9 @@ class Scene_nivel1 extends Phaser.Scene {
         .setName('Resp3');
         this.Intentos = this.add.image(60, 45, 'Intentos').setOrigin(0).setScale(0.8);
         this.astro = this.add.image(0, 0, 'astro', 1).setOrigin(0).setInteractive().setScale(0.5);
-        this.operacion = this.add.image(550, 340, 'operacionEjemplo').setOrigin(0).setScale(0.8);
-        this.numResp1 = this.add.image(175, 170, '250').setScale(0.8).setInteractive()
-        .setName('numResp1');
-        this.numResp2 = this.add.image(385, 300, '189').setScale(0.8).setInteractive()
-        .setName('numResp2');
-        this.numResp3= this.add.image(175, 430, '169').setScale(0.8).setInteractive()
-        .setName('numResp3');
+        
+
+        this.RespAleatorias();
         
         this.respuestas.addMultiple([this.btn_Resp1, this.btn_Resp2, this.btn_Resp3]);
 
@@ -276,6 +273,39 @@ class Scene_nivel1 extends Phaser.Scene {
               // No user is signed in.
             }
         });
+    }
+
+    RespAleatorias(){
+        var num1 = Phaser.Math.Between(0,99);
+        var num2 = Phaser.Math.Between(0,99);
+        var respCorrecta = num1 + num2;
+        var resp1;
+        var resp2;
+        do {
+            resp1 = Phaser.Math.RND.integerInRange(0,99)
+          } while (respCorrecta != resp1)
+
+        do {
+            resp2 = Phaser.Math.RND.integerInRange(0,99)
+          } while (respCorrecta != resp2)
+        this.operacion = this.add.text(550, 340, num1 + " + " + num2, {font: '28px Rubik', fill: '#000000'});
+        var Pos1 = {"x":175, "y":170};
+        var Pos2 = {"x":385, "y":300};
+        var Pos3 = {"x":175, "y":430};
+        let PosRand = [Pos1, Pos2, Pos3];
+        console.log(PosRand.length);
+        var aleatorio = Math.floor(Math.random()*(3));
+        this.numResp1 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], respCorrecta, 
+        {font: '28px Rubik', fill: '#000000'}).setScale(0.8).setInteractive().setName('numResp1');
+        PosRand.splice(aleatorio, 1);
+        console.log(PosRand);
+        aleatorio = Math.floor(Math.random()*(2));
+        this.numResp2 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], resp1, 
+        {font: '28px Rubik', fill: '#000000'}).setScale(0.8).setInteractive().setName('numResp2');
+        PosRand.splice(aleatorio, 1);
+        console.log(PosRand);
+        this.numResp3 = this.add.text(PosRand[0]["x"], PosRand[0]["y"], resp2, 
+        {font: '28px Rubik', fill: '#000000'}).setScale(0.8).setInteractive().setName('numResp3');
     }
 }
 export default Scene_nivel1;
