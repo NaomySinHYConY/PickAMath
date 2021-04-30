@@ -169,27 +169,35 @@ class Scene_nivel1 extends Phaser.Scene {
         this.btn_Next.on(eventos.POINTER_DOWN, () => 
         {
             this.nextSound.play();
-            if(intentos == 1){
-                console.log("Perdiste :c");
-                this.scene.stop(this);
-                this.scene.start('Scene_login');
-            }
             if(aciertos == 9){
                 console.log("Ganaste :c");
                 this.scene.stop(this);
                 this.scene.start('Scene_rancking');
             }
-            if(flag == true && aciertos < 9 && intentos != 1){ //respuesta correcta
+            if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;
                 console.log("Aciertos: " + aciertos);
-                this.DestruirDatos();
-                this.RespAleatorias();
+                this.operacion.setText("Asombroso");
+                this.time.delayedCall(2000, function(){ 
+                    this.DestruirDatos();
+                    this.RespAleatorias();
+                }, [], this);  
+                
             }else if(flag == false){ //respuesta incorrecta
                 intentos -= 1;
                 this.txtNumOportunidades.setText(intentos.toString());
-                //Mostrar la respuesta correcta
-                this.DestruirDatos();
-                this.RespAleatorias();
+                this.txtTitulo = this.add.text(530, 320, "Respuesta correcta:", {font: '18px Rubik', fill: '#000000'});
+                this.operacion.setText(this.numResp1.name);
+                this.time.delayedCall(2000, function(){   
+                    if(intentos == 0){
+                        console.log("Perdiste :c");
+                        this.scene.stop(this);
+                        this.scene.start('Scene_login');
+                    }
+                    this.txtTitulo.destroy();
+                    this.DestruirDatos();
+                    this.RespAleatorias();
+                }, [], this); 
             }  
         });
 
@@ -332,7 +340,7 @@ class Scene_nivel1 extends Phaser.Scene {
         let PosRand = [Pos1, Pos2, Pos3];
         var aleatorio = Math.floor(Math.random()*(3));
         this.numResp1 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], respCorrecta, 
-        {font: '28px Rubik', fill: '#000000'}).setInteractive().setName('numResp1');
+        {font: '28px Rubik', fill: '#000000'}).setInteractive().setName(respCorrecta);
         if(PosRand[aleatorio] == Pos1){
             this.btn_Resp1.setState("Correcta");
             this.btn_Resp2.setState(":v");
@@ -349,10 +357,10 @@ class Scene_nivel1 extends Phaser.Scene {
         PosRand.splice(aleatorio, 1);
         aleatorio = Math.floor(Math.random()*(2));
         this.numResp2 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], resp1, 
-        {font: '28px Rubik', fill: '#000000'}).setInteractive().setName('numResp2');
+        {font: '28px Rubik', fill: '#000000'}).setInteractive();
         PosRand.splice(aleatorio, 1);
         this.numResp3 = this.add.text(PosRand[0]["x"], PosRand[0]["y"], resp2, 
-        {font: '28px Rubik', fill: '#000000'}).setInteractive().setName('numResp3');
+        {font: '28px Rubik', fill: '#000000'}).setInteractive();
     }
 
     DestruirDatos(){
