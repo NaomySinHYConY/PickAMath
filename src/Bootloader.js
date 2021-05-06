@@ -73,7 +73,7 @@ class Bootloader extends Phaser.Scene {
                     console.log(email);
                     var NuevoUsuario = new Usuario(nombre,email, userId,imageURL);
                     
-                    firebase.database().ref('usuario/alumno/' + NuevoUsuario.id).set({
+                    firebase.database().ref('usuarios/' + NuevoUsuario.id).set({
                         username: NuevoUsuario.nombre,
                         email: NuevoUsuario.correo,
                         profile_picture : NuevoUsuario.photo

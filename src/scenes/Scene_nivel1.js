@@ -96,6 +96,57 @@ class Scene_nivel1 extends Phaser.Scene {
         
         this.respuestas.addMultiple([this.btn_Resp1, this.btn_Resp2, this.btn_Resp3]);
 
+        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', cursive, fontSize: '20px '});
+        var nivelAvance = this.add.text(150, 600, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', cursive, fontSize: '20px '});
+        
+        firebase.auth().onAuthStateChanged(function(usuario) {
+            if (usuario) {
+                var nombre      = usuario.displayName;
+                var email       = usuario.email;
+                var userId      = usuario.uid;
+                var imageURL  = usuario.photoURL;
+                console.log(nombre);
+                console.log(email);
+                
+                nombreAlumno.setText(nombre);
+                nivelAvance.setText("Nivel: 1");
+                //var codigoClase = document.getElementById('codigoclase').value;
+                //buscarCodigoGrupo(codigoClase);
+                //categoria.setText();
+            } else {
+              // No user is signed in.
+            }
+        });
+
+        function registrarPuntuacion(puntuacion, planeta){
+            firebase.auth().onAuthStateChanged(function(usuario) {
+                if (usuario) {
+                    var nombre      = usuario.displayName;
+                    var userId      = usuario.uid;
+                    console.log("Puntuación para: "+nombre);
+
+                    firebase.database().ref('puntuacion/' + userId).set({
+                        nombre : nombre,
+                        puntaje: puntuacion,
+                        categoria: planeta,
+                        nivel: 1
+                    }, (error) => {
+                        if (error) {
+                            // The write failed...
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            
+                        } else {
+                          // Data saved successfully!
+                          //alert(nombre + " ");
+                        }
+                    });
+                   
+                } else {
+                  console.log("No hay un usuario en sesión");
+                }
+            });
+        }
 
         this.txtNumOportunidades = this.add.text(215, 40, "3", 
         {font: '28px Rubik', fill: '#FF8139'});
@@ -171,6 +222,7 @@ class Scene_nivel1 extends Phaser.Scene {
             this.nextSound.play();
             if(aciertos == 9){
                 console.log("Ganaste :c");
+                registrarPuntuacion(aciertos, "Arcus");
                 this.scene.stop(this);
                 this.scene.start('Scene_rancking');
             }
@@ -297,27 +349,7 @@ class Scene_nivel1 extends Phaser.Scene {
             console.error(error);
         });
 */
-        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
-        var nivelAvance = this.add.text(150, 600, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
         
-        firebase.auth().onAuthStateChanged(function(usuario) {
-            if (usuario) {
-                var nombre      = usuario.displayName;
-                var email       = usuario.email;
-                var userId      = usuario.uid;
-                var imageURL  = usuario.photoURL;
-                console.log(nombre);
-                console.log(email);
-                
-                nombreAlumno.setText(nombre);
-                nivelAvance.setText("Nivel: 1");
-                //var codigoClase = document.getElementById('codigoclase').value;
-                //buscarCodigoGrupo(codigoClase);
-                //categoria.setText();
-            } else {
-              // No user is signed in.
-            }
-        });
     }
 
     RespAleatorias(){
