@@ -10,14 +10,14 @@ class Scene_login extends Phaser.Scene {
         this.load.image('galaxia','galaxia.png');
         this.load.image('play', '/Botones/play.png');
         this.load.image('astro2', 'astro2.png');
-        this.load.image('fondo_numeros', 'numeros.png');
+        this.load.image('fondo_numeros', 'fondos/numeros.png');
         this.load.image('logo', 'logo.png');
         this.load.image('alien','alien.png');
         this.load.image('back','back.png');
        
         this.load.audio("bback", "/sonidos/glitch-2.mp3");
 
-        this.load.html('loginform', 'txt/loginform.html');
+        this.load.html('introcod', 'txt/introcod.html');
     }
 
     create() {
@@ -67,20 +67,19 @@ class Scene_login extends Phaser.Scene {
         this.logo           = this.add.image(100,50,"logo");
         this.back           = this.add.image(50,120,"back").setInteractive().setName('back');
         this.astro2         = this.add.image(500,270,"astro2").setScale(1.3).setDepth(2);
-        this.registrar      = this.add.image(900,50,'registrar').setInteractive().setName('registrar').setDepth(2);
         this.alien          = this.add.image(75,560,"alien").setInteractive();
         this.play           = this.add.image(510,550,"play").setInteractive().setName('play').setDepth(2).setScale(0.8);
         
         
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
-            if(gameObject.name == 'play' || gameObject.name == 'registrar' || gameObject.name == 'back'){
+            if(gameObject.name == 'play' || gameObject.name == 'back'){
                 gameObject.setScale(1.10);
                 this.whosh.play();
             }
         });
 
         this.input.on(eventos.GAMEOBJECT_OUT, (pointer, gameObject) => {
-            if(gameObject.name == 'play' || gameObject.name == 'registrar' || gameObject.name == 'back'){
+            if(gameObject.name == 'play'|| gameObject.name == 'back'){
                 gameObject.setScale(1);
             }
         });
@@ -91,13 +90,7 @@ class Scene_login extends Phaser.Scene {
             this.bback.play();
         });
 
-        this.registrar.on(eventos.POINTER_DOWN, () => {
-            this.scene.stop(this);
-            this.scene.start('Scene_registro');
-            this.next.play();
-        });
-
-        this.element = this.add.dom(500, 500).createFromCache('loginform');
+        this.element = this.add.dom(500, 500).createFromCache('introcod');
         this.element.setDepth(5);
 
         this.play.on(eventos.POINTER_DOWN, () => {
