@@ -156,19 +156,16 @@ class Scene_nivel1 extends Phaser.Scene {
             if(gameObject.name == 'Resp1'){
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
-                this.numResp1.setScale(0.9);
                 this.hoverSoundResp.play();
                 this.btn_Next.setInteractive();
             } if (gameObject.name == 'Resp2') {
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
-                this.numResp2.setScale(0.9);
                 this.hoverSoundResp.play();
                 this.btn_Next.setInteractive();
             } if (gameObject.name == 'Resp3'){
                 gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
-                this.numResp3.setScale(0.9);
                 this.hoverSoundResp.play();
                 this.btn_Next.setInteractive();
             }
@@ -229,6 +226,7 @@ class Scene_nivel1 extends Phaser.Scene {
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;
                 console.log("Aciertos: " + aciertos);
+                this.operacion.setX(545);
                 this.operacion.setText("Asombroso");
                 this.time.delayedCall(2000, function(){ 
                     this.DestruirDatos();
@@ -239,6 +237,8 @@ class Scene_nivel1 extends Phaser.Scene {
                 intentos -= 1;
                 this.txtNumOportunidades.setText(intentos.toString());
                 this.txtTitulo = this.add.text(530, 320, "Respuesta correcta:", {font: '18px Rubik', fill: '#000000'});
+                this.operacion.setX(585);
+                this.operacion.setY(350);
                 this.operacion.setText(this.numResp1.name);
                 this.time.delayedCall(2000, function(){   
                     if(intentos == 0){
@@ -365,12 +365,13 @@ class Scene_nivel1 extends Phaser.Scene {
         do {
             resp2 = Phaser.Math.RND.integerInRange(0,198)
         } while (respCorrecta == resp2)
-        this.operacion = this.add.text(550, 340, num1 + " + " + num2, {font: '28px Rubik', fill: '#000000'});
-        var Pos1 = {"x":175, "y":170};
-        var Pos2 = {"x":385, "y":300};
-        var Pos3 = {"x":175, "y":430};
+        this.operacion = this.add.text(560, 335, num1 + " + " + num2, {font: '28px Rubik', fill: '#000000'});
+        var Pos1 = {"x":155, "y":155};
+        var Pos2 = {"x":365, "y":285};
+        var Pos3 = {"x":155, "y":415};
         let PosRand = [Pos1, Pos2, Pos3];
         var aleatorio = Math.floor(Math.random()*(3));
+        //numResp1 siempre va a tener la respuesta correcta
         this.numResp1 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], respCorrecta, 
         {font: '28px Rubik', fill: '#000000'}).setInteractive().setName(respCorrecta);
         if(PosRand[aleatorio] == Pos1){
