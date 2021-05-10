@@ -39,11 +39,41 @@ class Scene_loginProfesor extends Phaser.Scene {
             this.scene.start('Bootloader');
             this.next.play();
         });
+
         //Para pasar a la escena del registro
         loginform.addListener('click');
         loginform.on('click', function(event){
           if(event.target.name === 'btn_registrar'){
             console.log("Presionaste registrar");
+            var inputUsername = this.getChildByName('nombreUsuario');
+            var inputPassword = this.getChildByName('password');
+    
+                //  Have they entered anything?
+                if (inputUsername.value !== '' && inputPassword.value !== '')
+                {
+                    //  Turn off the click events
+                    this.removeListener('click');
+                   
+                    //this.scene.stop(this);
+                    //this.scene.start('Scene_registro');
+                    //this.next.play();
+                    //  Tween the login form out
+                    /*
+                    this.scene.tweens.add({ targets: loginform.rotate3d, x: 1, w: 90, duration: 3000, ease: 'Power3' });
+    
+                    this.scene.tweens.add({ targets: loginform, scaleX: 2, scaleY: 2, y: 700, duration: 3000, ease: 'Power3',
+                        onComplete: function ()
+                        {
+                            loginform.setVisible(false);
+                        }
+                    });*/
+                }
+                else
+                {
+                    //  Flash the prompt
+                    this.scene.tweens.add({ targets: text, alpha: 0.1, duration: 200, ease: 'Power3', yoyo: true });
+                }
+            
             /*
             this.scene.stop(this);
             this.scene.start('Scene_registro');
@@ -69,6 +99,12 @@ class Scene_loginProfesor extends Phaser.Scene {
         */
 
         
+    }
+
+    cambiarARegistro(){
+      this.scene.stop(this);
+      this.scene.start('Scene_registro');
+      this.next.play();
     }
 
     update(time,delta){}

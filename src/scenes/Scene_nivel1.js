@@ -4,16 +4,18 @@ class Scene_nivel1 extends Phaser.Scene {
     }
 
     init(code){
-        var categoria = this.add.text(150, 575, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
+        var categoria = this.add.text(150, 575, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
         categoria.setDepth(5);
+        
         var database = firebase.database();
         database.ref().child("grupos").child(code).get().then(function(snapshot) {
             if (snapshot.exists()) {
                 console.log(snapshot.val());
                     
                 var rescategoria = snapshot.val().Categoria;
-                console.log("Categoria: " + rescategoria);
+                
                 categoria.setText("Categoria: " + rescategoria);
+                this.data.set('categoria',rescategoria);
             }
             else {
               console.log("No data available");
@@ -21,7 +23,7 @@ class Scene_nivel1 extends Phaser.Scene {
         }).catch(function(error) {
             console.error(error);
         });
-
+        this.data.set('coderank', code);
     }
 
     preload() {
@@ -35,8 +37,6 @@ class Scene_nivel1 extends Phaser.Scene {
         this.load.audio("hoverSoundResp", '../sonidos/hoverResp.mp3');
         this.load.audio("hoverSound", "../sonidos/whosh4.mp3");
         this.load.audio("backSound", "../sonidos/glitch-2.mp3");
-
-
     }
 
     create() {
@@ -96,49 +96,36 @@ class Scene_nivel1 extends Phaser.Scene {
         
         this.respuestas.addMultiple([this.btn_Resp1, this.btn_Resp2, this.btn_Resp3]);
 
-        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', cursive, fontSize: '20px '});
-        var nivelAvance = this.add.text(150, 600, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', cursive, fontSize: '20px '});
+        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
         
         firebase.auth().onAuthStateChanged(function(usuario) {
             if (usuario) {
                 var nombre      = usuario.displayName;
-                var email       = usuario.email;
-                var userId      = usuario.uid;
-                var imageURL  = usuario.photoURL;
                 console.log(nombre);
-                console.log(email);
                 
                 nombreAlumno.setText(nombre);
-                nivelAvance.setText("Nivel: 1");
-                //var codigoClase = document.getElementById('codigoclase').value;
-                //buscarCodigoGrupo(codigoClase);
-                //categoria.setText();
             } else {
               // No user is signed in.
             }
         });
 
-        function registrarPuntuacion(puntuacion, planeta){
+        function registrarPuntuacion(codigo, puntuacion, planeta){
             firebase.auth().onAuthStateChanged(function(usuario) {
                 if (usuario) {
                     var nombre      = usuario.displayName;
                     var userId      = usuario.uid;
-                    console.log("Puntuación para: "+nombre);
-
-                    firebase.database().ref('puntuacion/' + userId).set({
+                    firebase.database().ref('puntuacion/'+ codigo + '/' + userId).set({
                         nombre : nombre,
                         puntaje: puntuacion,
-                        categoria: planeta,
-                        nivel: 1
+                        categoria: planeta
                     }, (error) => {
                         if (error) {
                             // The write failed...
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            
+                            alert(errorMessage);
                         } else {
-                          // Data saved successfully!
-                          //alert(nombre + " ");
+                            console.log("Puntuación insertada para: " + nombre);
                         }
                     });
                    
@@ -219,7 +206,7 @@ class Scene_nivel1 extends Phaser.Scene {
             this.nextSound.play();
             if(aciertos == 9){
                 console.log("Ganaste :c");
-                registrarPuntuacion(aciertos, "Arcus");
+                registrarPuntuacion(this.data.list.coderank,aciertos, this.data.list.categoria);
                 this.scene.stop(this);
                 this.scene.start('Scene_rancking');
             }

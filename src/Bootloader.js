@@ -73,7 +73,7 @@ class Bootloader extends Phaser.Scene {
                     console.log(email);
                     var NuevoUsuario = new Usuario(nombre,email, userId,imageURL);
                     
-                    firebase.database().ref('usuarios/' + NuevoUsuario.id).set({
+                    firebase.database().ref('usuario/alumno/' + NuevoUsuario.id).set({
                         username: NuevoUsuario.nombre,
                         email: NuevoUsuario.correo,
                         profile_picture : NuevoUsuario.photo
@@ -82,10 +82,10 @@ class Bootloader extends Phaser.Scene {
                             // The write failed...
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            
+                            alert(errorMessage);
                         } else {
                           // Data saved successfully!
-                          alert('Usuario '+ NuevoUsuario.nombre + ' insertado');
+                          console.log('Usuario '+ NuevoUsuario.nombre + ' insertado');
                           
                         }
                     });
