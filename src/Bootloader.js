@@ -18,12 +18,11 @@ class Bootloader extends Phaser.Scene {
 
         this.load.image('PAM', 'PAM.png');
         this.load.image('PickAMath', 'PickAMath.png');
-        this.load.image('fondo','fondo.png');
+        this.load.image('fondo','fondos/fondo.png');
         this.load.image('cat','cat.png');
         this.load.image('astro','astro.png');
         this.load.image('galaxia','galaxia.png');
         this.load.image('play', '/Botones/play.png');
-        this.load.image('registrar','/Botones/btn_registro.png');
         this.load.image('docente','/Botones/docente.png');
 
         this.load.on('complete', () => {
@@ -74,7 +73,7 @@ class Bootloader extends Phaser.Scene {
                     console.log(email);
                     var NuevoUsuario = new Usuario(nombre,email, userId,imageURL);
                     
-                    firebase.database().ref('usuarios/' + NuevoUsuario.id).set({
+                    firebase.database().ref('usuario/alumno/' + NuevoUsuario.id).set({
                         username: NuevoUsuario.nombre,
                         email: NuevoUsuario.correo,
                         profile_picture : NuevoUsuario.photo
@@ -83,10 +82,10 @@ class Bootloader extends Phaser.Scene {
                             // The write failed...
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            
+                            alert(errorMessage);
                         } else {
                           // Data saved successfully!
-                          alert('Usuario '+ NuevoUsuario.nombre + ' insertado');
+                          console.log('Usuario '+ NuevoUsuario.nombre + ' insertado');
                           
                         }
                     });
@@ -150,12 +149,11 @@ class Bootloader extends Phaser.Scene {
         this.fondo      = this.add.image(470,330,"fondo").setDepth(1);
         this.astro      = this.add.image(750,280,"astro").setDepth(2).setInteractive();
         this.play       = this.add.image(500,550,"play").setInteractive().setName('play').setDepth(2);
-        this.registrar  = this.add.image(900,50,'registrar').setInteractive().setName('registrar').setDepth(2);
         this.cat        = this.add.image(130,400,"cat").setDepth(2);
         this.docente    = this.add.image(900,580,"docente").setDepth(2).setInteractive().setName('docente').setScale(0.50);
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
-            if(gameObject.name == 'play' || gameObject.name == 'registrar'){
+            if(gameObject.name == 'play'){
                 gameObject.setScale(1.10);
                 this.whosh.play();
             }else if(gameObject.name == 'docente'){
@@ -165,7 +163,7 @@ class Bootloader extends Phaser.Scene {
         });
 
         this.input.on(eventos.GAMEOBJECT_OUT, (pointer, gameObject) => {
-            if(gameObject.name == 'play' || gameObject.name == 'registrar'){
+            if(gameObject.name == 'play'){
                 //this.hover.play(this.musicConf2);
                 gameObject.setScale(1);
             }else if(gameObject.name == 'docente'){
@@ -182,15 +180,10 @@ class Bootloader extends Phaser.Scene {
 
         this.docente.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this)
-            this.scene.start('Scene_grupos');
+            this.scene.start('Scene_loginProfesor');
             this.next.play();
         });
 
-        this.registrar.on(eventos.POINTER_DOWN, () => {
-            this.scene.stop(this);
-            this.scene.start('Scene_registro');
-            this.next.play();
-        });
         /*
         this.tweens2 = this.add.tween({
             targets: this.astro,

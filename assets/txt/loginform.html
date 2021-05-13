@@ -2,10 +2,30 @@
     <html lang="es">
     
     <body>
-      
-        <input type="text" class="codigo" placeholder="Código de clase" id="codigoclase" name="codigoclase"/>
-       
-      
-    <div class="shadow"></div>
+        <div>
+            <input type="submit" class="btn_registrar" name="btn_registrar" value="Regístrate">
+            
+        </div>
+
+        <form class = "fondo_rectangulo">
+            <div>
+                <img src="/assets/astro_foto.png" class="astro_foto">
+            </div>
+
+            <div>
+                <i class="material-icons iconoInput" style="font-size:30px">person</i>
+                <input type="text" class="input-login" name="nombreUsuario" placeholder="Nombre de usuario" id="username" required />
+            </div>
+            
+            <div>
+                <i class="material-icons iconoInput" style="font-size:30px">https</i>
+                <input type="password"  class="input-login" name="password" placeholder="Contraseña" id="password" required/>
+            </div>
+
+            <div>
+                <input type="submit" class="btn_entrar" value="Entrar">
+            </div>
+            
+        </form>
     </body>
 </html>
