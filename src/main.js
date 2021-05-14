@@ -1,5 +1,6 @@
 import Bootloader from './Bootloader.js';
 import Scene_login from './scenes/Scene_login.js';
+import Scene_loginProfesor from './scenes/Scene_loginProfesor.js';
 import Scene_registro from './scenes/Scene_registro.js';
 import Scene_mapa from './scenes/Scene_mapa.js';
 import Scene_temas from './scenes/Scene_temas.js';
@@ -50,7 +51,7 @@ const config = {
         }
     },
     scene: [
-        Bootloader,Scene_login,Scene_registro,Scene_mapa,Scene_detallesCat ,Scene_temas,Scene_nivel1, Scene_restas, Scene_rancking,Scene_grupos,Scene_agregarGrupo
+        Bootloader,Scene_login,Scene_registro,Scene_loginProfesor,Scene_mapa,Scene_detallesCat ,Scene_temas,Scene_nivel1,Scene_restas, Scene_rancking,Scene_grupos,Scene_agregarGrupo
     ]
 };
 

@@ -21,7 +21,7 @@ class Scene_registro extends Phaser.Scene {
 
         this.load.audio("bback", "/sonidos/glitch-2.mp3");
 
-        this.load.html('nameform', 'txt/nameform.html');
+        this.load.html('registerform', 'txt/registerform.html');
     }
 
     create() {
@@ -47,7 +47,7 @@ class Scene_registro extends Phaser.Scene {
         this.barra          = this.add.image(500,25,"barra").setDepth(1);
         this.cancelar       = this.add.image(610,600,"cancelar").setInteractive().setName('cancelar').setDepth(2);
 
-        this.registerform = this.add.dom(500, 500).createFromCache('nameform');
+        this.registerform = this.add.dom(500, 500).createFromCache('registerform');
         this.registerform.setDepth(5);
 
         function validarContra(pass){
@@ -67,7 +67,7 @@ class Scene_registro extends Phaser.Scene {
             var correo = document.getElementById('correo').value;
 
             if(validarContra(pass) == true){
-                firebase.database().ref('docente/' + usuario).set({
+                firebase.database().ref('usuario/docente/' + usuario).set({
                     username: usuario,
                     email: correo,
                     password : md5(pass),
