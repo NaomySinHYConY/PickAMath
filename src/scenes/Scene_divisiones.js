@@ -141,8 +141,6 @@ class Scene_divisiones extends Phaser.Scene {
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
-                //gameObject.setTint(0xB050D6);
-                //gameObject.setTint(0x742495);
                 gameObject.setTint(0x7F379C);
                 gameObject.setScale(0.9);
                 this.hoverSoundResp.play();
