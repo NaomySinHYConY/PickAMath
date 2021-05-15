@@ -1,6 +1,6 @@
-class Scene_nivel1 extends Phaser.Scene {
+class Scene_divisiones extends Phaser.Scene {
     constructor() {
-        super('Scene_nivel1'); 
+        super('Scene_divisiones'); 
     }
 
     init(code){
@@ -27,9 +27,9 @@ class Scene_nivel1 extends Phaser.Scene {
     }
 
     preload() {
-        console.log('Scene_nivel1');
-        this.load.setPath('./assets/nivel1');
-        this.load.image(['fondo_nivel1', 'titulo', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Mush', 
+        console.log('Scene_divisiones');
+        this.load.setPath('./assets/nivel1_divisiones');
+        this.load.image(['fondo_divisiones', 'titulo', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Jelly', 
         'speech', 'btnResp', 'Intentos', 'planet', 'next2']);
         this.load.image('astro', '../astro.png');
         this.load.audio("nextSound", '../sonidos/glitch-1.mp3');
@@ -43,7 +43,7 @@ class Scene_nivel1 extends Phaser.Scene {
         const eventos = Phaser.Input.Events;
         var flag = false;
         var aciertos = 0;
-        var intentos = 8;
+        var intentos = 5;
 
         this.musicConf1 = {
             volume: 0.7,
@@ -73,14 +73,14 @@ class Scene_nivel1 extends Phaser.Scene {
         
         this.respuestas = this.add.group();
 
-        this.fondo = this.add.image(0, 0, 'fondo_nivel1', 1).setOrigin(0);
+        this.fondo = this.add.image(0, 0, 'fondo_divisiones', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
         this.titulo = this.add.image(500, 30, 'titulo').setScale(0.6);
         this.tituloPAM = this.add.image(500, 58, 'tituloPAM').setScale(0.65);
-        this.planet = this.add.image(0, 485, 'planet').setOrigin(0);
+        this.planet = this.add.image(0, 485, 'planet').setOrigin(0).setScale(0.85);
         this.letrero = this.add.image(750, 10, 'EliminaEnemigos').setOrigin(0).setScale(0.75);
-        this.mush = this.add.image(720, 0, 'Mush').setOrigin(0);
-        this.speech = this.add.image(500, 260, 'speech').setOrigin(0);
+        this.jelly = this.add.image(700, 0, 'Jelly').setOrigin(0);
+        this.speech = this.add.image(515, 265, 'speech').setOrigin(0);
         this.btn_Next = this.add.image(950, 600, 'next2').setScale(0.8).disableInteractive();
         this.btn_Resp1 = this.add.image(1000, 170, 'btnResp').setScale(0.8).setInteractive()
         .setName('Resp1');
@@ -135,13 +135,15 @@ class Scene_nivel1 extends Phaser.Scene {
             });
         }
 
-        this.txtNumOportunidades = this.add.text(215, 40, "8", 
+        this.txtNumOportunidades = this.add.text(215, 40, "5", 
         {font: '28px Rubik', fill: '#FF8139'});
 
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
-                gameObject.setTint(0xF46036);
+                //gameObject.setTint(0xB050D6);
+                //gameObject.setTint(0x742495);
+                gameObject.setTint(0x7F379C);
                 gameObject.setScale(0.9);
                 this.hoverSoundResp.play();
                 this.btn_Next.setInteractive();
@@ -192,7 +194,7 @@ class Scene_nivel1 extends Phaser.Scene {
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;
                 console.log("Aciertos: " + aciertos);
-                this.operacion.setX(545);
+                this.operacion.setX(555);
                 this.operacion.setText("Asombroso");
                 this.time.delayedCall(2000, function(){ 
                     this.DestruirDatos();
@@ -202,9 +204,9 @@ class Scene_nivel1 extends Phaser.Scene {
             }else if(flag == false){ //respuesta incorrecta
                 intentos -= 1;
                 this.txtNumOportunidades.setText(intentos.toString());
-                this.txtTitulo = this.add.text(530, 320, "Respuesta correcta:", {font: '18px Rubik', fill: '#000000'});
-                this.operacion.setX(585);
-                this.operacion.setY(350);
+                this.txtTitulo = this.add.text(542, 325, "Respuesta correcta:", {font: '18px Rubik', fill: '#000000'});
+                this.operacion.setX(607);
+                this.operacion.setY(355);
                 this.operacion.setText(this.numResp1.name);
                 this.time.delayedCall(2000, function(){   
                     if(intentos == 0){
@@ -238,16 +240,16 @@ class Scene_nivel1 extends Phaser.Scene {
 
         //Tweens
 
-        this.tweenMush = this.add.tween({
-            targets: [this.mush],
+        this.tweenJelly = this.add.tween({
+            targets: [this.jelly],
             ease: 'Bounce',
-            y:330,
+            y:365,
             repeat: 0,
             onStart: () => {
-               this.mush.setScale(0.7);
+               this.jelly.setScale(0.7);
             },
             onComplete: () => {
-                this.mush.setScale(1);
+                this.jelly.setScale(1);
             },
         });
 
@@ -319,19 +321,28 @@ class Scene_nivel1 extends Phaser.Scene {
     }
 
     RespAleatorias(){
-        var num1 = Phaser.Math.Between(0,99);
-        var num2 = Phaser.Math.Between(0,99);
-        var respCorrecta = num1 + num2;
+        var num1;
+        var num2;
+        var respCorrecta;
+        do {
+            num1 = Phaser.Math.Between(0,99);
+            // if(aciertos == 4){
+            //     num2 = Phaser.Math.Between(2,9);
+            // }else{
+                num2 = Phaser.Math.Between(1,9);
+            //}
+            respCorrecta = num1 / num2;
+        } while(num1 % num2 != 0)
         var resp1;
         var resp2;
         do {
-            resp1 = Phaser.Math.RND.integerInRange(0,198)
+            resp1 = Phaser.Math.RND.integerInRange(0,99)
         } while (respCorrecta == resp1)
 
         do {
-            resp2 = Phaser.Math.RND.integerInRange(0,198)
+            resp2 = Phaser.Math.RND.integerInRange(0,99)
         } while (respCorrecta == resp2)
-        this.operacion = this.add.text(560, 335, num1 + " + " + num2, {font: '28px Rubik', fill: '#000000'});
+        this.operacion = this.add.text(590, 345, num1 + " ÷ " + num2, {font: '28px Rubik', fill: '#000000'});
         var Pos1 = {"x":155, "y":155};
         var Pos2 = {"x":365, "y":285};
         var Pos3 = {"x":155, "y":415};
@@ -339,7 +350,7 @@ class Scene_nivel1 extends Phaser.Scene {
         var aleatorio = Math.floor(Math.random()*(3));
         //numResp1 siempre va a tener la respuesta correcta
         this.numResp1 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], respCorrecta, 
-        {font: '28px Rubik', fill: '#000000'}).setName(respCorrecta);
+        {font: '28px Rubik', fill: '#ffffff'}).setName(respCorrecta);
         if(PosRand[aleatorio] == Pos1){
             this.btn_Resp1.setState("Correcta");
             this.btn_Resp2.setState(":v");
@@ -356,10 +367,10 @@ class Scene_nivel1 extends Phaser.Scene {
         PosRand.splice(aleatorio, 1);
         aleatorio = Math.floor(Math.random()*(2));
         this.numResp2 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], resp1, 
-        {font: '28px Rubik', fill: '#000000'});
+        {font: '28px Rubik', fill: '#ffffff'});
         PosRand.splice(aleatorio, 1);
         this.numResp3 = this.add.text(PosRand[0]["x"], PosRand[0]["y"], resp2, 
-        {font: '28px Rubik', fill: '#000000'});
+        {font: '28px Rubik', fill: '#ffffff'});
     }
 
     DestruirDatos(){
@@ -369,4 +380,4 @@ class Scene_nivel1 extends Phaser.Scene {
         this.numResp3.destroy();
     }
 }
-export default Scene_nivel1;
+export default Scene_divisiones;

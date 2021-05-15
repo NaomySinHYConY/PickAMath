@@ -6,6 +6,7 @@ import Scene_mapa from './scenes/Scene_mapa.js';
 import Scene_temas from './scenes/Scene_temas.js';
 import Scene_nivel1 from './scenes/Scene_nivel1.js';
 import Scene_restas from './scenes/Scene_restas.js';
+import Scene_divisiones from './scenes/Scene_divisiones.js';
 import Scene_rancking from './scenes/Scene_rancking.js';
 import Scene_grupos from './scenes/Scene_grupos.js';
 import Scene_agregarGrupo from './scenes/Scene_agregarGrupo.js';
@@ -51,7 +52,7 @@ const config = {
         }
     },
     scene: [
-        Bootloader,Scene_login,Scene_registro,Scene_loginProfesor,Scene_mapa,Scene_detallesCat ,Scene_temas,Scene_nivel1,Scene_restas, Scene_rancking,Scene_grupos,Scene_agregarGrupo
+        Bootloader,Scene_login,Scene_registro,Scene_loginProfesor,Scene_mapa,Scene_detallesCat ,Scene_temas,Scene_nivel1,Scene_restas, Scene_divisiones,Scene_rancking,Scene_grupos,Scene_agregarGrupo
     ]
 };
 
