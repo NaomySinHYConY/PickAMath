@@ -135,8 +135,8 @@ class Scene_divisiones extends Phaser.Scene {
             });
         }
 
-        this.txtNumOportunidades = this.add.text(215, 40, "5", 
-        {font: '28px Rubik', fill: '#FF8139'});
+        this.txtNumOportunidades = this.add.text(215, 35, "5", 
+        {color: '#FF8139', fontFamily: 'Sigmar One', fontSize: '28px'});
 
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {

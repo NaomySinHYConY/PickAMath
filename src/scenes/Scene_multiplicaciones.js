@@ -135,8 +135,8 @@ class Scene_multiplicaciones extends Phaser.Scene {
             });
         }
 
-        this.txtNumOportunidades = this.add.text(215, 40, "5", 
-        {font: '28px Rubik', fill: '#FF8139'});
+        this.txtNumOportunidades = this.add.text(215, 35, "5", 
+        {color: '#FF8139', fontFamily: 'Sigmar One', fontSize: '28px'});
 
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
@@ -192,8 +192,9 @@ class Scene_multiplicaciones extends Phaser.Scene {
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;
                 console.log("Aciertos: " + aciertos);
-                this.operacion.setX(600);
+                this.operacion.setX(585);
                 this.operacion.setText("Asombroso");
+                this.operacion.setFontSize('26px');
                 this.time.delayedCall(2000, function(){ 
                     this.DestruirDatos();
                     this.RespAleatorias();
@@ -202,8 +203,8 @@ class Scene_multiplicaciones extends Phaser.Scene {
             }else if(flag == false){ //respuesta incorrecta
                 intentos -= 1;
                 this.txtNumOportunidades.setText(intentos.toString());
-                this.txtTitulo = this.add.text(587, 150, "Respuesta correcta:", {font: '18px Rubik', fill: '#000000'});
-                this.operacion.setX(655);
+                this.txtTitulo = this.add.text(610, 135, "Respuesta\ncorrecta:", {color: 'black', fontFamily: 'Sigmar One', fontSize: '20px'});
+                this.operacion.setX(645);
                 this.operacion.setY(180);
                 this.operacion.setText(this.numResp1.name);
                 this.time.delayedCall(2000, function(){   
@@ -331,15 +332,15 @@ class Scene_multiplicaciones extends Phaser.Scene {
         do {
             resp2 = Phaser.Math.RND.integerInRange(0,900)
         } while (respCorrecta == resp2)
-        this.operacion = this.add.text(630, 170, num1 + " x " + num2, {font: '28px Rubik', fill: '#000000'});
-        var Pos1 = {"x":155, "y":175};
-        var Pos2 = {"x":365, "y":275};
-        var Pos3 = {"x":155, "y":375};
+        this.operacion = this.add.text(610, 160, num1 + " x " + num2, {color: 'black', fontFamily: 'Sigmar One', fontSize: '34px'});
+        var Pos1 = {"x":150, "y":167};
+        var Pos2 = {"x":360, "y":267};
+        var Pos3 = {"x":150, "y":367};
         let PosRand = [Pos1, Pos2, Pos3];
         var aleatorio = Math.floor(Math.random()*(3));
         //numResp1 siempre va a tener la respuesta correcta
         this.numResp1 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], respCorrecta, 
-        {font: '28px Rubik', fill: '#ffffff'}).setName(respCorrecta);
+        {color: 'white', fontFamily: 'Sigmar One', fontSize: '30px'}).setName(respCorrecta);
         if(PosRand[aleatorio] == Pos1){
             this.btn_Resp1.setState("Correcta");
             this.btn_Resp2.setState(":v");
@@ -356,10 +357,10 @@ class Scene_multiplicaciones extends Phaser.Scene {
         PosRand.splice(aleatorio, 1);
         aleatorio = Math.floor(Math.random()*(2));
         this.numResp2 = this.add.text(PosRand[aleatorio]["x"], PosRand[aleatorio]["y"], resp1, 
-        {font: '28px Rubik', fill: '#ffffff'});
+        {color: 'white', fontFamily: 'Sigmar One', fontSize: '30px'});
         PosRand.splice(aleatorio, 1);
         this.numResp3 = this.add.text(PosRand[0]["x"], PosRand[0]["y"], resp2, 
-        {font: '28px Rubik', fill: '#ffffff'});
+        {color: 'white', fontFamily: 'Sigmar One', fontSize: '30px'});
     }
 
     DestruirDatos(){
