@@ -193,19 +193,19 @@ function validarContra(pass){
     }
 }
 
-function registrarInProf(){
-    var nombre = document.getElementById('nameField').value;
-    var usuario = document.getElementById('username').value;
-    var pass = document.getElementById('password').value;
-    var correo = document.getElementById('correo').value;
+function verificarCorreo(nombre, usuario, pass, correo){
+    var user = firebase.auth().currentUser;
 
-    if(validarContra(pass) == true){
-        //La primera función se encarga de añadir sus datos a la base
-        firebase.database().ref('usuario/docente/' + nombre).set({
+    user.sendEmailVerification().then(function(){
+        //Email sent
+        console.log("Enviando correo de verificación...");
+        //Añadir sus datos a la base
+        firebase.database().ref('usuario/' + user.uid).set({
             username: usuario,
             email: correo,
             password : md5(pass),
-            name : nombre
+            name : nombre,
+            employment : "Docente"
         }, (error) => {
             if (error) {
                 // The write failed...
@@ -213,37 +213,36 @@ function registrarInProf(){
                 var errorMessage = error.message;
                 alert(errorMessage);
             } else {
-              // Data saved successfully!
-              console.log("Docente registrado exitosamente");
-              alert('Docente '+ nombre + ' ingresado exitosamente. ¡Bienvenido!');
+            // Data saved successfully!
+            console.log("Docente registrado exitosamente");
+            alert("Registro exitoso. Verifique su cuenta de correo electrónico y recargue la página");
             }
+        });
+    }).catch(function(error){
+        //An error happend
+        console.log(error);
+        alert("Ha ocurrido un error al enviarle el correo de verificación, intente de nuevo.");
+    });
+}
+
+function registrarEmail(){
+    var nombre = document.getElementById('nameField').value;
+    var usuario = document.getElementById('username').value;
+    var pass = document.getElementById('password').value;
+    var correo = document.getElementById('correo').value;
+
+    if(validarContra(pass) == true){
+        //Crear su credencial de usuario y envio de verificación
+        firebase.auth().createUserWithEmailAndPassword(correo,pass).then(function(){
+            verificarCorreo(nombre, usuario, pass, correo);
+        })
+        .catch(function(error){
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorMessage);
+            alert("Ha ocurrido un error al registrar su cuenta, intente de nuevo");
         });
     }else{
         alert('La contraseña debe tener al menos 8 caracteres');
     }
 }
-
-function registrarEmail(){
-    var pass = document.getElementById('password').value;
-    var correo = document.getElementById('correo').value;
-
-    firebase.auth().createUserWithEmailAndPassword(correo,pass).then(function(){
-        verificarCorreo();
-    })
-    .catch(function(error){
-        var errorCode = error.code;
-        var errorMessage = error.message;
-    });
-}
-
-function verificarCorreo(){
-    var user = firebase.auth().currentUser;
-    user.sendEmailVerification().then(function(){
-        //Email sent
-        console.log("Enviando correo de verificación...");
-    }).catch(function(error){
-        //An error happend
-        console.log(error);
-    });
-}
-

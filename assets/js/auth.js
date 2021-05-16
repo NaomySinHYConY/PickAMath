@@ -13,13 +13,11 @@ function singIn(){
 function observer(){
     firebase.auth().onAuthStateChanged(function(usuario) {
         if (usuario) {
-           var email = usuario.email;
-           var name = usuario.displayName;
+           var email = usuario.email
            console.log("Hay un usuario activo");
            console.log("Correo: " + email);
-           console.log("Nombre: " + name);
            console.log("Verificado(?): " + usuario.emailVerified);
-           redirigirProfesor(usuario);
+           redirigir(usuario);
         } else {
           // No user is signed in.
           console.log("No hay un usuario autenticado aún");
@@ -27,11 +25,28 @@ function observer(){
     });
 }
 
-function redirigirProfesor(user){
+function redirigir(user){
     var user = user;
-    if(user.emailVerified){
-        
-    }
+    var id = user.uid;
+    //Buscar el usuario por su id
+    //Buscar cual es su ocupacion para saber si es profesor
+    //Si es profesor verificado,lo llevamos a la escena de los grupos
+    var database = firebase.database();
+    database.ref().child("usuario").child(id).get().then(function(snapshot) {
+        if (snapshot.exists()) {
+            console.log(snapshot.val().employment);
+            var cargo = snapshot.val().employment;
+            if(cargo == "Docente"){
+                this.scene.start("Scene_grupos");
+            }
+        }
+        else 
+        {
+            console.log("No data available");
+        }
+    },this).catch(function(error) {
+        console.error(error);
+    });
 }
 
 function singOutEmail(){
@@ -74,10 +89,11 @@ function ingresarGoogle(){
             console.log(email);
             var NuevoUsuario = new Usuario(nombre,email, userId,imageURL);
             
-            firebase.database().ref('usuario/alumno/' + NuevoUsuario.id).set({
+            firebase.database().ref('usuario/' + NuevoUsuario.id).set({
                 username: NuevoUsuario.nombre,
                 email: NuevoUsuario.correo,
-                profile_picture : NuevoUsuario.photo
+                profile_picture : NuevoUsuario.photo,
+                employment: "Alumno"
             }, (error) => {
                 if (error) {
                     // The write failed...
