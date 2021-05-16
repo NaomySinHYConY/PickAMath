@@ -15,7 +15,6 @@ class Scene_nivel1 extends Phaser.Scene {
                 var rescategoria = snapshot.val().Categoria;
                 
                 categoria.setText("Categoria: " + rescategoria);
-                this.data.set('categoria',rescategoria);
             }
             else {
               console.log("No data available");
@@ -206,7 +205,7 @@ class Scene_nivel1 extends Phaser.Scene {
             this.nextSound.play();
             if(aciertos == 9){
                 console.log("Ganaste :c");
-                registrarPuntuacion(this.data.list.coderank,aciertos, this.data.list.categoria);
+                registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Arcus - Sumas");
                 this.scene.stop(this);
                 this.scene.start('Scene_rancking');
             }
