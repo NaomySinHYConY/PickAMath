@@ -342,9 +342,9 @@ class Scene_divisiones extends Phaser.Scene {
             resp2 = Phaser.Math.RND.integerInRange(0,99)
         } while (respCorrecta == resp2)
         this.operacion = this.add.text(575, 335, num1 + " ÷ " + num2, {color: 'black', fontFamily: 'Sigmar One', fontSize: '34px'});
-        var Pos1 = {"x":155, "y":147};
-        var Pos2 = {"x":365, "y":277};
-        var Pos3 = {"x":155, "y":407};
+        var Pos1 = {"x":155, "y":155};
+        var Pos2 = {"x":365, "y":285};
+        var Pos3 = {"x":155, "y":415};
         let PosRand = [Pos1, Pos2, Pos3];
         var aleatorio = Math.floor(Math.random()*(3));
         //numResp1 siempre va a tener la respuesta correcta
