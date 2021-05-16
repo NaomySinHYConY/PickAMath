@@ -135,7 +135,7 @@ class Scene_nivel1 extends Phaser.Scene {
             });
         }
 
-        this.txtNumOportunidades = this.add.text(215, 35, "5", 
+        this.txtNumOportunidades = this.add.text(215, 35, "8", 
         {color: '#FF8139', fontFamily: 'Sigmar One', fontSize: '28px'});
 
 
