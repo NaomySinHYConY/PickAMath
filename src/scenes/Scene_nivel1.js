@@ -155,9 +155,11 @@ class Scene_nivel1 extends Phaser.Scene {
             this.nextSound.play();
             if(aciertos == 9){
                 console.log("Ganaste :c");
+                console.log("Codigo desde Scene_nivel1: " + this.data.list.coderank);
+                var codeRanking = this.data.list.coderank;
                 registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Arcus - Sumas");
                 this.scene.stop(this);
-                this.scene.start('Scene_rancking',aciertos,this.data.list.coderank);
+                this.scene.start('Scene_rancking',aciertos,codeRanking);
             }
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;

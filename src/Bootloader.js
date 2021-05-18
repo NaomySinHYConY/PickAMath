@@ -75,9 +75,10 @@ class Bootloader extends Phaser.Scene {
         });
 
         this.play.on(eventos.POINTER_DOWN, () => {
-            ingresarGoogle();
+            //ingresarGoogle();
             this.scene.stop(this);
-            this.scene.start('Scene_login');
+            //this.scene.start('Scene_login');
+            this.scene.start("Scene_rancking",9,"COD123");
             this.next.play();
         });
 
