@@ -97,7 +97,7 @@ class Scene_login extends Phaser.Scene {
         
         const capacidadYPeso = (cod) => {
             this.scene.stop(this);
-            this.scene.start('Scene_nivel1',cod);
+            this.scene.start('Scene_nivel9',cod);
             this.next.play();
         }
         
@@ -109,25 +109,25 @@ class Scene_login extends Phaser.Scene {
         
         const fraccionesImpropias = (cod) => {
             this.scene.stop(this);
-            this.scene.start('Scene_nivel1',cod);
+            this.scene.start('Scene_nivel7',cod);
             this.next.play();
         }
         
         const reglaDeTres = (cod) => {
             this.scene.stop(this);
-            this.scene.start('Scene_nivel1',cod);
+            this.scene.start('Scene_nivel8',cod);
             this.next.play();
         }
         
         const fraccionesPropias = (cod) => {
             this.scene.stop(this);
-            this.scene.start('Scene_nivel1',cod);
+            this.scene.start('Scene_nivel6',cod);
             this.next.play();
         }
         
         const figuras = (cod) => {
             this.scene.stop(this);
-            this.scene.start('Scene_nivel1',cod);
+            this.scene.start('Scene_nivel3',cod);
             this.next.play();
         }        
 

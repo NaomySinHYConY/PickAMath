@@ -7,14 +7,12 @@ class Scene_nivel3 extends Phaser.Scene{
     init(code) {
         var categoria = this.add.text(150, 575, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
         categoria.setDepth(5);
-        
+        //Figuras
         var database = firebase.database();
         database.ref().child("grupos").child(code).get().then(function(snapshot) {
             if (snapshot.exists()) {
                 console.log(snapshot.val());
-                    
                 var rescategoria = snapshot.val().Categoria;
-                
                 categoria.setText("Categoria: " + rescategoria);
             }
             else {
@@ -148,6 +146,10 @@ class Scene_nivel3 extends Phaser.Scene{
                             this.win.play(musicConfF);
                             this.time.delayedCall(300, function(){
                                 this.fondoWin.setVisible(true);
+                                console.log("Insertar puntuación desde Scene_nivel3: " + this.data.list.coderank);
+                                registrarPuntuacion(this.data.list.coderank, 10, "Planeta Narmú - Figuras");
+                                this.scene.stop(this);
+                                this.scene.start('Scene_rancking',10,this.data.list.coderank);
                             }, [], this);
                         }
                     }

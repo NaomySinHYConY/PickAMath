@@ -154,6 +154,10 @@ class Scene_nivel9 extends Phaser.Scene{
                             this.win.play(musicConfF);
                             this.time.delayedCall(300, function(){
                                 this.fondoWin.setVisible(true);
+                                console.log("Insertar puntuación desde Scene_nivel9: " + this.data.list.coderank);
+                                registrarPuntuacion(this.data.list.coderank, 10, "Planeta Tropius - Capacidad y peso");
+                                this.scene.stop(this);
+                                this.scene.start('Scene_rancking',10,this.data.list.coderank);
                             }, [], this);
                         }
                     }

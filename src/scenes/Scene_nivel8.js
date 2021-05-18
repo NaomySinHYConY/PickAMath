@@ -134,6 +134,10 @@ class Scene_nivel8 extends Phaser.Scene{
                     //TODO: Guardar puntuación y volver
                     this.final.setVisible(true);
                     this.final.setDepth(21);
+                    console.log("Insertar puntuación desde Scene_nivel8: " + this.data.list.coderank);
+                    registrarPuntuacion(this.data.list.coderank, 10, "Planeta Durean - Regla de tres");
+                    this.scene.stop(this);
+                    this.scene.start('Scene_rancking',10,this.data.list.coderank);
                 }       
             }
             else{
