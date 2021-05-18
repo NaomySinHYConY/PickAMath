@@ -10,12 +10,8 @@ class Scene_multiplicaciones extends Phaser.Scene {
         var database = firebase.database();
         database.ref().child("grupos").child(code).get().then(function(snapshot) {
             if (snapshot.exists()) {
-                console.log(snapshot.val());
-                    
                 var rescategoria = snapshot.val().Categoria;
-                
                 categoria.setText("Categoria: " + rescategoria);
-                this.data.set('categoria',rescategoria);
             }
             else {
               console.log("No data available");
@@ -101,39 +97,11 @@ class Scene_multiplicaciones extends Phaser.Scene {
         firebase.auth().onAuthStateChanged(function(usuario) {
             if (usuario) {
                 var nombre      = usuario.displayName;
-                console.log(nombre);
-                
                 nombreAlumno.setText(nombre);
             } else {
               // No user is signed in.
             }
         });
-
-        function registrarPuntuacion(codigo, puntuacion, planeta){
-            firebase.auth().onAuthStateChanged(function(usuario) {
-                if (usuario) {
-                    var nombre      = usuario.displayName;
-                    var userId      = usuario.uid;
-                    firebase.database().ref('puntuacion/'+ codigo + '/' + userId).set({
-                        nombre : nombre,
-                        puntaje: puntuacion,
-                        categoria: planeta
-                    }, (error) => {
-                        if (error) {
-                            // The write failed...
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            alert(errorMessage);
-                        } else {
-                            console.log("Puntuación insertada para: " + nombre);
-                        }
-                    });
-                   
-                } else {
-                  console.log("No hay un usuario en sesión");
-                }
-            });
-        }
 
         this.txtNumOportunidades = this.add.text(215, 35, "5", 
         {color: '#FF8139', fontFamily: 'Sigmar One', fontSize: '28px'});
@@ -151,7 +119,7 @@ class Scene_multiplicaciones extends Phaser.Scene {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
                 gameObject.clearTint();
                 gameObject.setScale(0.8);
-                this.btn_Next.disableInteractive();
+                //this.btn_Next.disableInteractive();
             }
         });
 
@@ -185,9 +153,10 @@ class Scene_multiplicaciones extends Phaser.Scene {
             this.nextSound.play();
             if(aciertos == 9){
                 console.log("Ganaste c:");
-                registrarPuntuacion(this.data.list.coderank,aciertos, this.data.list.categoria);
+                console.log("Codigo desde Scene_multiplicaciones: " + this.data.list.coderank);
+                registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Teyvat - Multiplicaciones");
                 this.scene.stop(this);
-                this.scene.start('Scene_rancking');
+                this.scene.start('Scene_rancking',aciertos,this.data.list.coderank);
             }
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;
@@ -298,25 +267,6 @@ class Scene_multiplicaciones extends Phaser.Scene {
                 this.numResp2.alpha = 1;
              },
         });
-  /*      
-        var categoria = this.add.text(150, 570, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
-        var database = firebase.database();
-        database.ref().child("grupos").child(codigo).get().then(function(snapshot) {
-            if (snapshot.exists()) {
-                console.log(snapshot.val());
-                    
-                var rescategoria = snapshot.val().Categoria;
-                console.log("Categoria: " + rescategoria);
-                categoria.setText("Categoria: " + rescategoria);
-            }
-            else {
-              console.log("No data available");
-            }
-        }).catch(function(error) {
-            console.error(error);
-        });
-*/
-        
     }
 
     RespAleatorias(){

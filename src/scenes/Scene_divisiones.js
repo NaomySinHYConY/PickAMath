@@ -10,12 +10,8 @@ class Scene_divisiones extends Phaser.Scene {
         var database = firebase.database();
         database.ref().child("grupos").child(code).get().then(function(snapshot) {
             if (snapshot.exists()) {
-                console.log(snapshot.val());
-                    
                 var rescategoria = snapshot.val().Categoria;
-                
                 categoria.setText("Categoria: " + rescategoria);
-                this.data.set('categoria',rescategoria);
             }
             else {
               console.log("No data available");
@@ -109,32 +105,6 @@ class Scene_divisiones extends Phaser.Scene {
             }
         });
 
-        function registrarPuntuacion(codigo, puntuacion, planeta){
-            firebase.auth().onAuthStateChanged(function(usuario) {
-                if (usuario) {
-                    var nombre      = usuario.displayName;
-                    var userId      = usuario.uid;
-                    firebase.database().ref('puntuacion/'+ codigo + '/' + userId).set({
-                        nombre : nombre,
-                        puntaje: puntuacion,
-                        categoria: planeta
-                    }, (error) => {
-                        if (error) {
-                            // The write failed...
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            alert(errorMessage);
-                        } else {
-                            console.log("Puntuación insertada para: " + nombre);
-                        }
-                    });
-                   
-                } else {
-                  console.log("No hay un usuario en sesión");
-                }
-            });
-        }
-
         this.txtNumOportunidades = this.add.text(215, 35, "5", 
         {color: '#FF8139', fontFamily: 'Sigmar One', fontSize: '28px'});
 
@@ -151,7 +121,7 @@ class Scene_divisiones extends Phaser.Scene {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
                 gameObject.clearTint();
                 gameObject.setScale(0.8);
-                this.btn_Next.disableInteractive();
+                //this.btn_Next.disableInteractive();
             }
         });
 
@@ -185,9 +155,10 @@ class Scene_divisiones extends Phaser.Scene {
             this.nextSound.play();
             if(aciertos == 9){
                 console.log("Ganaste c:");
-                registrarPuntuacion(this.data.list.coderank,aciertos, this.data.list.categoria);
+                console.log("Codigo desde Scene_divisiones: " + this.data.list.coderank);
+                registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Krobus - Divisiones");
                 this.scene.stop(this);
-                this.scene.start('Scene_rancking');
+                this.scene.start('Scene_rancking',aciertos,this.data.list.coderank);
             }
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;

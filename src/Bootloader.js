@@ -31,7 +31,45 @@ class Bootloader extends Phaser.Scene {
     }
 
     create() {
-        observer();
+        const esDocente = () => {
+            this.scene.stop(this);
+            this.scene.start('Scene_grupos');
+            this.next.play();
+          }  
+        //observer();
+        var database = firebase.database();
+
+        firebase.auth().onAuthStateChanged(function(usuario) {
+            if (usuario) {
+               var email = usuario.email
+               console.log("Hay un usuario activo");
+               console.log("Correo: " + email);
+               console.log("Verificado(?): " + usuario.emailVerified);
+               var id = usuario.uid;
+
+                database.ref().child("usuario").child(id).get().then(function(snapshot) {
+                    if (snapshot.exists()) {
+                        console.log(snapshot.val().employment);
+                        var cargo = snapshot.val().employment;
+                        if(cargo == "Docente"){
+                            esDocente();
+                        }
+                    }
+                    else 
+                    {
+                        console.log("No data available");
+                    }
+                }).catch(function(error) {
+                    console.error(error);
+                });
+
+            } else {
+              // No user is signed in.
+              console.log("No hay un usuario autenticado aún");
+            }
+        });
+
+
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
@@ -75,10 +113,9 @@ class Bootloader extends Phaser.Scene {
         });
 
         this.play.on(eventos.POINTER_DOWN, () => {
-            //ingresarGoogle();
+            ingresarGoogle();
             this.scene.stop(this);
-            //this.scene.start('Scene_login');
-            this.scene.start("Scene_rancking",9,"COD123");
+            this.scene.start('Scene_login');
             this.next.play();
         });
 

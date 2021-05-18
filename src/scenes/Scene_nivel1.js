@@ -10,10 +10,7 @@ class Scene_nivel1 extends Phaser.Scene {
         var database = firebase.database();
         database.ref().child("grupos").child(code).get().then(function(snapshot) {
             if (snapshot.exists()) {
-                console.log(snapshot.val());
-                    
-                var rescategoria = snapshot.val().Categoria;
-                
+                var rescategoria = snapshot.val().Categoria; 
                 categoria.setText("Categoria: " + rescategoria);
             }
             else {
@@ -106,7 +103,7 @@ class Scene_nivel1 extends Phaser.Scene {
         });
 
         this.txtNumOportunidades = this.add.text(215, 40, "3", 
-        {font: '28px Rubik', fill: '#FF8139'});
+        {fontFamily: 'Sigmar One', fontSize: '20px ', fill: '#FF8139'});
 
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
@@ -270,24 +267,6 @@ class Scene_nivel1 extends Phaser.Scene {
                 this.numResp2.alpha = 1;
              },
         });
-  /*      
-        var categoria = this.add.text(150, 570, 'Please login to play', { color: 'white', fontFamily: 'Arial', fontSize: '20px '});
-        var database = firebase.database();
-        database.ref().child("grupos").child(codigo).get().then(function(snapshot) {
-            if (snapshot.exists()) {
-                console.log(snapshot.val());
-                    
-                var rescategoria = snapshot.val().Categoria;
-                console.log("Categoria: " + rescategoria);
-                categoria.setText("Categoria: " + rescategoria);
-            }
-            else {
-              console.log("No data available");
-            }
-        }).catch(function(error) {
-            console.error(error);
-        });
-*/
         
     }
 

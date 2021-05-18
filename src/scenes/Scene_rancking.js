@@ -7,8 +7,8 @@ class Scene_rancking extends Phaser.Scene {
         var puntaje = this.add.text(296, 195, 'Tu puntaje: ' + score, { color: 'white', fontFamily: 'Sigmar One', fontSize: '50px '});
         puntaje.setDepth(5);
         this.data.set('codeRank', codigo);
-        puntajes("COD123");
-        //console.log("Código del juego desde Scene_rancking: " + this.data.list.codeRank);
+        puntajes(codigo);
+        console.log("Código del juego desde Scene_rancking: " + this.data.list.codeRank);
     }
 
     preload() {

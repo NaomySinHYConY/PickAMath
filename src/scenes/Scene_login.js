@@ -44,24 +44,7 @@ class Scene_login extends Phaser.Scene {
                 this.photo = photo;
             }
         }
-        /*
-        function buscarCodigoGrupo(codigo){
-            var database = firebase.database();
-            database.ref().child("grupos").child(codigo).get().then(function(snapshot) {
-                if (snapshot.exists()) {
-                    console.log(snapshot.val());
-                    var clase = snapshot.val().Docente;
-                    //var docente = clase.Docente;
-                    console.log("Su docente es: " + clase);
-                }
-                else {
-                  console.log("No data available");
-                }
-              }).catch(function(error) {
-                console.error(error);
-            });
-        }
-        */
+
         this.galaxia        = this.add.image(500,325,"galaxia").setScale(1.30).setInteractive().setDepth(0);
         this.fondo_numeros  = this.add.image(500,330,"fondo_numeros").setDepth(1).setScale(1.2);
         this.logo           = this.add.image(100,50,"logo");
@@ -93,12 +76,108 @@ class Scene_login extends Phaser.Scene {
         this.element = this.add.dom(500, 500).createFromCache('introcod');
         this.element.setDepth(5);
 
+        const sumas = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_nivel1',cod);
+            this.next.play();
+        }
+        
+        const restas = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_restas',cod);
+            this.next.play();
+        }
+
+        const multiplicaciones = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_multiplicaciones',cod);
+            this.next.play();
+        }
+        
+        const capacidadYPeso = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_nivel1',cod);
+            this.next.play();
+        }
+        
+        const divisiones = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_divisiones',cod);
+            this.next.play();
+        }
+        
+        const fraccionesImpropias = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_nivel1',cod);
+            this.next.play();
+        }
+        
+        const reglaDeTres = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_nivel1',cod);
+            this.next.play();
+        }
+        
+        const fraccionesPropias = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_nivel1',cod);
+            this.next.play();
+        }
+        
+        const figuras = (cod) => {
+            this.scene.stop(this);
+            this.scene.start('Scene_nivel1',cod);
+            this.next.play();
+        }        
+
+        var categoria = this.add.text(150, 575, 'Code', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
+        categoria.setDepth(5);
+
         this.play.on(eventos.POINTER_DOWN, () => {
             var codigoClase = document.getElementById('codigoclase').value;
             console.log(codigoClase);
-            this.scene.stop(this);
-            this.scene.start('Scene_nivel1',codigoClase);
-            this.next.play();
+            
+            var database = firebase.database();
+        
+            database.ref().child("grupos").child(codigoClase).get().then(function(snapshot) {
+                if (snapshot.exists()) {
+                    var rescategoria = snapshot.val().Categoria; 
+                    console.log("Categoria: " + rescategoria);
+                    if(rescategoria == "Planeta Arcus - Sumas"){
+                        sumas(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Mudi - Restas"){
+                        restas(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Teyvat - Multiplicaciones"){
+                        multiplicaciones(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Tropius - Capacidad y peso"){
+                        capacidadYPeso(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Krobus - Divisiones"){
+                        divisiones(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Carvus - Fracciones impropias"){
+                        fraccionesImpropias(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Durean - Regla de tres"){
+                        reglaDeTres(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Plusalia - Fracciones propias"){
+                        fraccionesPropias(codigoClase);
+                    }
+                    else if(rescategoria == "Planeta Narmú - Figuras"){
+                        figuras(codigoClase);
+                    }
+                }
+                else 
+                {
+                    console.log("No data available");
+                }
+            }).catch(function(error) {
+                console.error(error);
+            });
         });
     }
 }

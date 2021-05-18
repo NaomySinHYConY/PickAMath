@@ -55,7 +55,7 @@ class Scene_loginProfesor extends Phaser.Scene {
             
           }
         },this);
-        //var boton = document.getElementById('codigoclase').value;
+        
       }
 
     update(time,delta){}
