@@ -75,24 +75,24 @@ class Scene_nivel3 extends Phaser.Scene{
             }
 
             if(this.posicionElegida<16 && this.posicionElegida>7){
-                posiY = 380;
+                posiY = 330;
             }
 
             if(this.posicionElegida>15){
-                posiY = 560;
+                posiY = 460;
             }
 
-            posiX = 85 + 120*(this.posicionElegida%8);
+            posiX = 140 + 100*(this.posicionElegida%8);
 
             if(this.i<12){
                 
-                this.baraja[(this.i)] = this.add.image(posiX, posiY, this.personajes[this.i]).setScale(0.8);
-                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.8);
+                this.baraja[(this.i)] = this.add.image(posiX, posiY, this.personajes[this.i]).setScale(0.6);
+                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.6);
                 this.dorsoTarjeta[this.i].name = this.personajes[this.i]; 
             }
             else{
-                this.baraja[(this.i)] = this.add.image(posiX , posiY, this.personajes[(this.i-12)]).setScale(0.8);
-                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.8);
+                this.baraja[(this.i)] = this.add.image(posiX , posiY, this.personajes[(this.i-12)]).setScale(0.6);
+                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.6);
                 this.dorsoTarjeta[this.i].name = this.personajes[(this.i-12)]; 
             }
             this.posiciones.splice(this.posicionRand, 1);

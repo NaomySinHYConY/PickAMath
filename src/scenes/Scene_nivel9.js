@@ -9,8 +9,8 @@ class Scene_nivel9 extends Phaser.Scene{
     } 
 
     preload(){
-        this.load.path = "./assets/nivel3/"; //Ruta de las imgs
-        this.load.image(["fondo", "dorsoTarjeta", "titulo", "circulo", "pentagono", "hexagono", "elipse", "cuadrilatero", "cuadrado", "rectangulo", "trapecio", "triangulo", "estrella", "rombo", "octagono", "fondoWin"]);
+        this.load.path = "./assets/nivel9/"; //Ruta de las imgs
+        this.load.image(["fondo", "dorsoTarjeta", "titulo", "dia", "hora", "minuto", "segundo", "tonelada", "kilo", "gramo", "miligramo", "hectolitro", "decalitro", "litro", "decilitro", "fondoWin"]);
         this.load.audio("soundtrack", ["/sonidos/soundtrack.mp3"]);
         this.load.audio("flip", ["/sonidos/flip.mp3"]);
         
@@ -59,7 +59,7 @@ class Scene_nivel9 extends Phaser.Scene{
         }
 
         this.baraja = [];
-        this.personajes = ["circulo", "pentagono", "hexagono", "elipse", "cuadrilatero", "cuadrado", "rectangulo", "trapecio", "triangulo", "estrella", "rombo", "octagono"];
+        this.personajes = ["dia", "hora", "minuto", "segundo", "tonelada", "kilo", "gramo", "miligramo", "hectolitro", "decalitro", "litro", "decilitro"];
         this.dorsoTarjeta = [];
         let posiX = 0;
         let posiY;
@@ -75,29 +75,30 @@ class Scene_nivel9 extends Phaser.Scene{
             }
 
             if(this.posicionElegida<16 && this.posicionElegida>7){
-                posiY = 380;
+                posiY = 330;
             }
 
             if(this.posicionElegida>15){
-                posiY = 560;
+                posiY = 460;
             }
 
-            posiX = 85 + 120*(this.posicionElegida%8);
+            posiX = 140 + 100*(this.posicionElegida%8);
 
             if(this.i<12){
                 
-                this.baraja[(this.i)] = this.add.image(posiX, posiY, this.personajes[this.i]).setScale(0.8);
-                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.8);
+                this.baraja[(this.i)] = this.add.image(posiX, posiY, this.personajes[this.i]).setScale(0.6);
+                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.6);
                 this.dorsoTarjeta[this.i].name = this.personajes[this.i]; 
             }
             else{
-                this.baraja[(this.i)] = this.add.image(posiX , posiY, this.personajes[(this.i-12)]).setScale(0.8);
-                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.8);
+                this.baraja[(this.i)] = this.add.image(posiX , posiY, this.personajes[(this.i-12)]).setScale(0.6);
+                this.dorsoTarjeta[this.i] = this.add.image(posiX, posiY, "dorsoTarjeta").setInteractive().setScale(0.6);
                 this.dorsoTarjeta[this.i].name = this.personajes[(this.i-12)]; 
             }
             this.posiciones.splice(this.posicionRand, 1);
             this.i++;
         }
+
 
         for (let step = 0; step < 24; step++){
             this.dorsoTarjeta[step].on(eventos.POINTER_OVER, function() {
