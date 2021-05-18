@@ -32,7 +32,7 @@ class Scene_loginProfesor extends Phaser.Scene {
         this.fondo_numeros  = this.add.image(500,330,"fondo_numeros_01").setDepth(1).setScale(0.65);
         this.astro_back     = this.add.image(70,565,"astro_back").setDepth(2).setScale(0.70).setInteractive();
         this.logo           = this.add.image(890,600,"logo").setDepth(2).setScale(0.65);
-        var loginform      = this.add.dom(500, 500).createFromCache('loginform').setDepth(5);
+        var loginform      = this.add.dom(500, 500).createFromCache('loginform').setDepth(5).setVisible(true);
 
         this.astro_back.on(eventos.POINTER_DOWN, () => {
             this.scene.stop(this);
@@ -52,7 +52,8 @@ class Scene_loginProfesor extends Phaser.Scene {
             //Para ingresar como profesor
             console.log("Presionaste ingresar");
             singIn();
-            
+            this.scene.stop(this);
+            loginform.setVisible(false);
           }
         },this);
         
