@@ -71,7 +71,7 @@ class Scene_multiplicaciones extends Phaser.Scene {
 
         this.fondo = this.add.image(0, 0, 'fondo_multi', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
-        this.titulo = this.add.image(500, 30, 'titulo').setScale(0.6);
+        this.titulo = this.add.image(500, 30, 'titulo').setScale(0.25);
         this.tituloPAM = this.add.image(500, 58, 'tituloPAM').setScale(0.65);
         this.planet = this.add.image(0, 485, 'planet').setOrigin(0).setScale(0.8);
         this.letrero = this.add.image(750, 10, 'EliminaEnemigos').setOrigin(0).setScale(0.75);

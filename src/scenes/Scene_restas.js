@@ -10,8 +10,9 @@ class Scene_restas extends Phaser.Scene {
         database.ref().child("grupos").child(code).get().then(function(snapshot) {
             if (snapshot.exists()) {
                 var rescategoria = snapshot.val().Categoria;
-                console.log("Categoria: " + rescategoria);
+                
                 categoria.setText("Categoria: " + rescategoria);
+                this.data.set('categoria',rescategoria);
             }
             else {
               console.log("No data available");
@@ -73,9 +74,9 @@ class Scene_restas extends Phaser.Scene {
 
         this.fondo = this.add.image(0, 0, 'fondo_restas', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
-        this.titulo = this.add.image(500, 30, 'titulo').setScale(0.6);
-        this.tituloPAM = this.add.image(500, 58, 'tituloPAM').setScale(0.65);
-        this.planet = this.add.image(0, 485, 'planet').setOrigin(0).setScale(0.9);
+        this.titulo = this.add.image(500, 30, 'titulo').setScale(0.35);
+        this.tituloPAM = this.add.image(500, 65, 'tituloPAM').setScale(0.65);
+        this.planet = this.add.image(0, 485, 'planet').setOrigin(0);
         this.letrero = this.add.image(750, 10, 'EliminaEnemigos').setOrigin(0).setScale(0.75);
         this.carac = this.add.image(690, 0, 'carac').setOrigin(0);
         this.speech = this.add.image(500, 260, 'speech').setOrigin(0);
@@ -94,8 +95,46 @@ class Scene_restas extends Phaser.Scene {
         
         this.respuestas.addMultiple([this.btn_Resp1, this.btn_Resp2, this.btn_Resp3]);
 
+        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
 
-        this.txtNumOportunidades = this.add.text(215, 35, "5", 
+        firebase.auth().onAuthStateChanged(function(usuario) {
+            if (usuario) {
+                var nombre      = usuario.displayName;
+                console.log(nombre);
+                
+                nombreAlumno.setText(nombre);
+            } else {
+              // No user is signed in.
+            }
+        });
+
+        function registrarPuntuacion(codigo, puntuacion, planeta){
+            firebase.auth().onAuthStateChanged(function(usuario) {
+                if (usuario) {
+                    var nombre      = usuario.displayName;
+                    var userId      = usuario.uid;
+                    firebase.database().ref('puntuacion/'+ codigo + '/' + userId).set({
+                        nombre : nombre,
+                        puntaje: puntuacion,
+                        categoria: planeta
+                    }, (error) => {
+                        if (error) {
+                            // The write failed...
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            alert(errorMessage);
+                        } else {
+                            console.log("Puntuación insertada para: " + nombre);
+                        }
+                    });
+                   
+                } else {
+                  console.log("No hay un usuario en sesión");
+                }
+            });
+        }
+
+        this.txtNumOportunidades = this.add.text(215, 35, "8", 
         {color: '#FF8139', fontFamily: 'Sigmar One', fontSize: '28px'});
 
 
@@ -201,7 +240,7 @@ class Scene_restas extends Phaser.Scene {
 
         //Tweens
 
-        this.tweenMush = this.add.tween({
+        this.tweenCarac = this.add.tween({
             targets: [this.carac],
             ease: 'Bounce',
             y:330,
