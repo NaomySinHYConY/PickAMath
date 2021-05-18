@@ -4,13 +4,31 @@ class Scene_nivel3 extends Phaser.Scene{
             key: "Scene_nivel3" //Nombre interno o clave de referencia
         });
     }
-    init() {
+    init(code) {
+        var categoria = this.add.text(150, 575, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
+        categoria.setDepth(5);
         
+        var database = firebase.database();
+        database.ref().child("grupos").child(code).get().then(function(snapshot) {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                    
+                var rescategoria = snapshot.val().Categoria;
+                
+                categoria.setText("Categoria: " + rescategoria);
+            }
+            else {
+              console.log("No data available");
+            }
+        }).catch(function(error) {
+            console.error(error);
+        });
+        this.data.set('coderank', code);
     } 
 
     preload(){
         this.load.path = "./assets/nivel3/"; //Ruta de las imgs
-        this.load.image(["fondo", "dorsoTarjeta", "titulo", "circulo", "pentagono", "hexagono", "elipse", "cuadrilatero", "cuadrado", "rectangulo", "trapecio", "triangulo", "estrella", "rombo", "octagono", "fondoWin"]);
+        this.load.image(["fondoM", "dorsoTarjeta", "titulo", "circulo", "pentagono", "hexagono", "elipse", "cuadrilatero", "cuadrado", "rectangulo", "trapecio", "triangulo", "estrella", "rombo", "octagono", "fondoWin", "planet", "tituloPAM"]);
         this.load.audio("soundtrack", ["/sonidos/soundtrack.mp3"]);
         this.load.audio("flip", ["/sonidos/flip.mp3"]);
         
@@ -44,14 +62,8 @@ class Scene_nivel3 extends Phaser.Scene{
         }
 
         this.soundtrack.play(musicConf);
+        this.addDataGen();
         
-        this.fondo = this.add.image(0, 0, "fondo");
-        this.fondo.setOrigin(0.015);
-        this.fondo.setScale(1.4);
-
-        this.titulo = this.add.image(500, 70 , "titulo");
-        this.titulo.setScale(0.4);
-
         this.posiciones = [];
 
         for (let i = 0; i<24; i++){
@@ -153,6 +165,24 @@ class Scene_nivel3 extends Phaser.Scene{
             }
         });
         
+    }
+
+    addDataGen(){
+        this.fondo = this.add.image(0, 0, "fondoM");
+        this.fondo.setOrigin(0.015);
+        this.fondo.setScale(1);
+        this.titulo = this.add.image(500, 50, 'titulo').setScale(0.3);
+        this.tituloPAM = this.add.image(500, 90, 'tituloPAM').setScale(1);
+        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
+        
+        firebase.auth().onAuthStateChanged(function(usuario) {
+            if (usuario) {
+                var nombre      = usuario.displayName;
+                console.log(nombre);
+                nombreAlumno.setText(nombre);
+            }
+        });
+        this.planet = this.add.image(0, 485, 'planet').setOrigin(0);
     }
 
 

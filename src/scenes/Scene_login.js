@@ -98,7 +98,7 @@ class Scene_login extends Phaser.Scene {
             var codigoClase = document.getElementById('codigoclase').value;
             console.log(codigoClase);
             this.scene.stop(this);
-            this.scene.start('Scene_nivel9');
+            this.scene.start('Scene_nivel8', codigoClase);
             //this.next.play();
         });
     }

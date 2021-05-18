@@ -4,13 +4,31 @@ class Scene_nivel6 extends Phaser.Scene{
             key: "Scene_nivel6" //Nombre interno o clave de referencia
         });
     }
-    init() {
-        //console.log("Alo soy init con clase uvur");
+    init(code) {
+        var categoria = this.add.text(150, 575, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
+        categoria.setDepth(5);
+        
+        var database = firebase.database();
+        database.ref().child("grupos").child(code).get().then(function(snapshot) {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                    
+                var rescategoria = snapshot.val().Categoria;
+                
+                categoria.setText("Categoria: " + rescategoria);
+            }
+            else {
+              console.log("No data available");
+            }
+        }).catch(function(error) {
+            console.error(error);
+        });
+        this.data.set('coderank', code);
     } 
 
     preload(){
         this.load.path = "./assets/nivel6/"; //Ruta de las imgs
-        this.load.image(["drop", "p0", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "FondoR", "fondoWi"]); //Arreglo de imagenes
+        this.load.image(["drop", "p0", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "fondoR", "fondoWi", "titulo", "tituloPAM", "planet"]); //Arreglo de imagenes
         this.load.audio("acierto", ["/sonidos/acierto.mp3"]);
         this.load.audio("error", ["/sonidos/error.mp3"]);
         this.load.audio("soundtrack", ["/sonidos/soundtrack.mp3"]);
@@ -34,14 +52,16 @@ class Scene_nivel6 extends Phaser.Scene{
         }
         this.soundtrack.play(musicConf);
     
-        this.fondo = this.add.image(0,0,"FondoR").setAlpha(0.99).setScale(1);
-        this.fondo.setOrigin(0);
-        this.fondo.setDepth(-1);
+        // this.fondo = this.add.image(0,0,"FondoR").setAlpha(0.99).setScale(1);
+        // this.fondo.setOrigin(0);
+        // this.fondo.setDepth(-1);
 
         this.posX = [310.5, 458.5, 606.5, 739, 869.5, 311, 441, 572, 739.5, 887, 311, 442, 572.5, 739.5, 886, 310.5, 459, 607, 756, 886];
         this.posY = [157, 170, 157, 170, 170, 269, 269, 255.5, 282.5, 268, 394.5, 369, 368.5, 394, 381.5, 493, 480, 480, 493, 493.5];
         this.piezas = [];
         this.drops = [];
+
+        this.addDataGen();
 
         //Cargar piezas
         this.final = this.add.image(0, 0, "fondoWi");
@@ -134,6 +154,25 @@ class Scene_nivel6 extends Phaser.Scene{
             return false;
         }
         else return true;
+    }
+
+    
+    addDataGen(){
+        this.fondo = this.add.image(0, 0, "fondoR");
+        this.fondo.setOrigin(0);
+        //this.fondo.setScale(1);
+        this.titulo = this.add.image(500, 40, 'titulo').setScale(0.3);
+        this.tituloPAM = this.add.image(500, 80, 'tituloPAM').setScale(1);
+        var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
+        
+        firebase.auth().onAuthStateChanged(function(usuario) {
+            if (usuario) {
+                var nombre      = usuario.displayName;
+                console.log(nombre);
+                nombreAlumno.setText(nombre);
+            }
+        });
+        this.planet = this.add.image(0, 485, 'planet').setOrigin(0);
     }
 
     update(time, delta){
