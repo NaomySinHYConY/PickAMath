@@ -26,14 +26,17 @@ class Scene_nivel3 extends Phaser.Scene{
 
     preload(){
         this.load.path = "./assets/nivel3/"; //Ruta de las imgs
-        this.load.image(["fondoM", "dorsoTarjeta", "titulo", "circulo", "pentagono", "hexagono", "elipse", "cuadrilatero", "cuadrado", "rectangulo", "trapecio", "triangulo", "estrella", "rombo", "octagono", "fondoWin", "planet", "tituloPAM"]);
-        this.load.audio("soundtrack", ["/sonidos/soundtrack.mp3"]);
+        this.load.image(["fondoM3", "dorsoTarjeta", "titulo3", "circulo", "pentagono", "hexagono", "elipse", "cuadrilatero", "cuadrado", "rectangulo", "trapecio", "triangulo", "estrella", "rombo", "octagono", "fondoWin", "planet3", "tituloPAM"]);
+        this.load.image('astro', '../astro.png');
+        this.load.audio("soundtrack", ["/sonidos/soundtrack2.mp3"]);
         this.load.audio("flip", ["/sonidos/flip.mp3"]);
         
         this.load.audio("clic", ["/sonidos/clic.mp3"]);
         this.load.audio("win", ["/sonidos/win.mp3"]);
         this.load.audio("error", ["/sonidos/error.mp3"]);
         this.load.audio("acierto", ["/sonidos/acierto.mp3"]);
+        this.load.audio("hoverSound", "../sonidos/whosh4.mp3");
+        this.load.audio("backSound", "../sonidos/glitch-2.mp3");
     }
 
 
@@ -58,9 +61,20 @@ class Scene_nivel3 extends Phaser.Scene{
             volume: 0.2,
             loop: true
         }
+        this.musicConf1 = {
+            volume: 0.7,
+            loop: false
+        };
+        
+        this.musicConf4 = {
+            volume: 0.3,
+            loop: false
+        };
+        this.hoverSound = this.sound.add("hoverSound", this.musicConf4);
+        this.backSound = this.sound.add("backSound", this.musicConf1);
 
         this.soundtrack.play(musicConf);
-        this.addDataGen();
+        this.addDataGen(eventos);
         
         this.posiciones = [];
 
@@ -169,11 +183,11 @@ class Scene_nivel3 extends Phaser.Scene{
         
     }
 
-    addDataGen(){
-        this.fondo = this.add.image(0, 0, "fondoM");
+    addDataGen(eventos){
+        this.fondo = this.add.image(0, 0, "fondoM3");
         this.fondo.setOrigin(0.015);
         this.fondo.setScale(1);
-        this.titulo = this.add.image(500, 50, 'titulo').setScale(0.3);
+        this.titulo = this.add.image(500, 50, 'titulo3').setScale(0.3);
         this.tituloPAM = this.add.image(500, 90, 'tituloPAM').setScale(1);
         var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
         
@@ -184,7 +198,26 @@ class Scene_nivel3 extends Phaser.Scene{
                 nombreAlumno.setText(nombre);
             }
         });
-        this.planet = this.add.image(0, 485, 'planet').setOrigin(0);
+        this.planet = this.add.image(0, 485, 'planet3').setOrigin(0);
+        this.astro = this.add.image(0, 0, 'astro', 1).setOrigin(0).setInteractive().setScale(0.5);
+        
+        this.astro.on(eventos.POINTER_OVER, ()  =>
+        {  
+            this.hoverSound.play();
+            this.astro.setScale(0.6);
+        });
+        this.astro.on(eventos.POINTER_OUT, () => 
+        {  
+            this.astro.setScale(0.5);
+        });
+
+        this.astro.on(eventos.POINTER_DOWN, () => 
+        {
+            this.backSound.play();
+            this.scene.stop(this);
+            this.soundtrack.stop();
+            this.scene.start('Scene_login');
+        });
     }
 
 

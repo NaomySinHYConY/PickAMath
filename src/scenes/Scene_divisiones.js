@@ -25,8 +25,8 @@ class Scene_divisiones extends Phaser.Scene {
     preload() {
         console.log('Scene_divisiones');
         this.load.setPath('./assets/nivel1_divisiones');
-        this.load.image(['fondo_divisiones', 'titulo', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Jelly', 
-        'speech', 'btnResp', 'Intentos', 'planet', 'next2']);
+        this.load.image(['fondo_divisiones', 'titulo5', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Jelly', 
+        'speech', 'btnResp', 'Intentos', 'planet5', 'next2']);
         this.load.image('astro', '../astro.png');
         this.load.audio("nextSound", '../sonidos/glitch-1.mp3');
         this.load.audio("clicSound", '../sonidos/clic.mp3');
@@ -71,9 +71,9 @@ class Scene_divisiones extends Phaser.Scene {
 
         this.fondo = this.add.image(0, 0, 'fondo_divisiones', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
-        this.titulo = this.add.image(500, 30, 'titulo').setScale(0.3);
+        this.titulo = this.add.image(500, 30, 'titulo5').setScale(0.3);
         this.tituloPAM = this.add.image(500, 58, 'tituloPAM').setScale(0.65);
-        this.planet = this.add.image(0, 485, 'planet').setOrigin(0).setScale(0.85);
+        this.planet = this.add.image(0, 485, 'planet5').setOrigin(0).setScale(0.85);
         this.letrero = this.add.image(750, 10, 'EliminaEnemigos').setOrigin(0).setScale(0.75);
         this.jelly = this.add.image(700, 0, 'Jelly').setOrigin(0);
         this.speech = this.add.image(515, 265, 'speech').setOrigin(0);

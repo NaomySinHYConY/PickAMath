@@ -28,10 +28,13 @@ class Scene_nivel7 extends Phaser.Scene{
 
     preload(){
         this.load.path = "./assets/nivel7/"; //Ruta de las imgs
-        this.load.image(["drop", "p0", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "fondoR", "fondoWi", "titulo", "tituloPAM", "planet"]); //Arreglo de imagenes
+        this.load.image(["drop", "p0", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "fondoR7", "fondoWi", "titulo7", "tituloPAM", "planet7"]); //Arreglo de imagenes
+        this.load.image('astro', '../astro.png');
         this.load.audio("acierto", ["/sonidos/acierto.mp3"]);
         this.load.audio("error", ["/sonidos/error.mp3"]);
         this.load.audio("soundtrack", ["/sonidos/soundtrack.mp3"]);
+        this.load.audio("hoverSound", "../sonidos/whosh4.mp3");
+        this.load.audio("backSound", "../sonidos/glitch-2.mp3");
         //console.log("Holi, soy preload, con clase 7u7r");
     }
 
@@ -50,6 +53,17 @@ class Scene_nivel7 extends Phaser.Scene{
             volume: 0.2,
             loop: true
         }
+        this.musicConf1 = {
+            volume: 0.7,
+            loop: false
+        };
+        
+        this.musicConf4 = {
+            volume: 0.3,
+            loop: false
+        };
+        this.hoverSound = this.sound.add("hoverSound", this.musicConf4);
+        this.backSound = this.sound.add("backSound", this.musicConf1);
         this.soundtrack.play(musicConf);
     
         // this.fondo = this.add.image(0,0,"fondoR").setAlpha(0.99).setScale(1);
@@ -61,7 +75,7 @@ class Scene_nivel7 extends Phaser.Scene{
         this.piezas = [];
         this.drops = [];
 
-        this.addDataGen();
+        this.addDataGen(eventos);
         //Cargar piezas
         this.final = this.add.image(0, 0, "fondoWi");
         this.final.setOrigin(0);
@@ -148,11 +162,11 @@ class Scene_nivel7 extends Phaser.Scene{
         
     }
     
-    addDataGen(){
-        this.fondo = this.add.image(0, 0, "fondoR");
+    addDataGen(eventos){
+        this.fondo = this.add.image(0, 0, "fondoR7");
         this.fondo.setOrigin(0);
         //this.fondo.setScale(1);
-        this.titulo = this.add.image(500, 40, 'titulo').setScale(0.3);
+        this.titulo = this.add.image(500, 40, 'titulo7').setScale(0.3);
         this.tituloPAM = this.add.image(500, 80, 'tituloPAM').setScale(1);
         var nombreAlumno = this.add.text(150, 550, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
         
@@ -163,7 +177,26 @@ class Scene_nivel7 extends Phaser.Scene{
                 nombreAlumno.setText(nombre);
             }
         });
-        this.planet = this.add.image(0, 485, 'planet').setOrigin(0);
+        this.planet = this.add.image(0, 485, 'planet7').setOrigin(0);
+        this.astro = this.add.image(0, 0, 'astro', 1).setOrigin(0).setInteractive().setScale(0.5);
+        
+        this.astro.on(eventos.POINTER_OVER, ()  =>
+        {  
+            this.hoverSound.play();
+            this.astro.setScale(0.6);
+        });
+        this.astro.on(eventos.POINTER_OUT, () => 
+        {  
+            this.astro.setScale(0.5);
+        });
+
+        this.astro.on(eventos.POINTER_DOWN, () => 
+        {
+            this.backSound.play();
+            this.scene.stop(this);
+            this.soundtrack.stop();
+            this.scene.start('Scene_login');
+        });
     }
 
     ganar(obj){
