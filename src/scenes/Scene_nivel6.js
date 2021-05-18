@@ -62,7 +62,7 @@ class Scene_nivel6 extends Phaser.Scene{
             this.piezas[i].setScale(0.9);
             //this.piezas[i].input.enableDrag =true;
             this.input.setDraggable(this.piezas[i]);
-            console.log(this.piezas[i]);
+            //console.log(this.piezas[i]);
             this.piezas[i].name = this.imgPiezas[i];
             this.piezas[i].setDepth(Phaser.Math.Between(0,20));
         }
@@ -82,14 +82,13 @@ class Scene_nivel6 extends Phaser.Scene{
             obj.setScale(0.95);
             obj.x = pointer.x;
             obj.y = pointer.y;
-            console.log("Comenzó drag en "+pointer.x);
+            //console.log("Comenzó drag en "+pointer.x);
         });
 
         this.input.on(eventos.DRAG, (pointer, obj, dragX, dragY) => {
-            console.log("DRAG Pointer x= "+pointer.x);
-            obj.x = dragX;
-            obj.y = dragY;
-            console.log("Pointer x= "+pointer.x);
+            obj.x = pointer.x;
+            obj.y = pointer.y;
+            //console.log("Pointer x= "+pointer.x);
         });
 
         this.input.on(eventos.DRAG_END, (pointer, obj, dropzone) => {
@@ -99,18 +98,19 @@ class Scene_nivel6 extends Phaser.Scene{
                 }
             obj.setScale(1.0);
             obj.clearTint();
-            console.log("Finalizó drag en "+pointer.x);
+            //console.log("Finalizó drag en "+pointer.x);
         });
 
         this.count = [];
 
         this.input.on(eventos.DROP, (pointer, obj, dropzone) => {
-            console.log("Drop!");
+            //console.log("Drop!");
             if(obj.name == dropzone.name){
                 obj.x = dropzone.x;
                 obj.y = dropzone.y;
                 this.acierto.play(musicConfF);
                 if(this.ganar(obj)){
+                    //TODO: Guardar puntuación y volver
                     this.final.setVisible(true);
                     this.final.setDepth(21);
                 }       
