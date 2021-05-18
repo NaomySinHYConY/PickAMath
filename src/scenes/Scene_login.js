@@ -66,6 +66,7 @@ class Scene_login extends Phaser.Scene {
         this.fondo_numeros  = this.add.image(500,330,"fondo_numeros").setDepth(1).setScale(1.2);
         this.logo           = this.add.image(100,50,"logo");
         this.back           = this.add.image(50,120,"back").setInteractive().setName('back');
+
         this.astro2         = this.add.image(500,270,"astro2").setScale(1.3).setDepth(2);
         this.alien          = this.add.image(75,560,"alien").setInteractive();
         this.play           = this.add.image(510,550,"play").setInteractive().setName('play').setDepth(2).setScale(0.8);
@@ -97,8 +98,8 @@ class Scene_login extends Phaser.Scene {
             var codigoClase = document.getElementById('codigoclase').value;
             console.log(codigoClase);
             this.scene.stop(this);
-            this.scene.start('Scene_nivel1',codigoClase);
-            this.next.play();
+            this.scene.start('Scene_nivel6');
+            //this.next.play();
         });
     }
 }

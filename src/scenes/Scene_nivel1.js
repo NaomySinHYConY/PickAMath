@@ -117,7 +117,7 @@ class Scene_nivel1 extends Phaser.Scene {
                     firebase.database().ref('puntuacion/'+ codigo + '/' + userId).set({
                         nombre : nombre,
                         puntaje: puntuacion,
-                        categoria: planeta
+                        categoria: 'Arcus'
                     }, (error) => {
                         if (error) {
                             // The write failed...
