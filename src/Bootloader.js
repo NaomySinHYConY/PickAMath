@@ -7,8 +7,6 @@ class Bootloader extends Phaser.Scene {
 
     init() {
         console.log('Escena Bootloader');
-        observer();
-        
     }
 
     preload() {
@@ -33,6 +31,7 @@ class Bootloader extends Phaser.Scene {
     }
 
     create() {
+        observer();
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 

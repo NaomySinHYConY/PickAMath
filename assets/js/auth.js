@@ -32,12 +32,17 @@ function redirigir(user){
     //Buscar cual es su ocupacion para saber si es profesor
     //Si es profesor verificado,lo llevamos a la escena de los grupos
     var database = firebase.database();
+    /*
+    this.scene.stop(this);
+    this.scene.start('Scene_grupos');
+    this.next.play();
+*/
     database.ref().child("usuario").child(id).get().then(function(snapshot) {
         if (snapshot.exists()) {
             console.log(snapshot.val().employment);
             var cargo = snapshot.val().employment;
             if(cargo == "Docente"){
-                this.scene.start("Scene_grupos");
+                
             }
         }
         else 
@@ -49,7 +54,7 @@ function redirigir(user){
     });
 }
 
-function singOutEmail(){
+function signOut(){
     firebase.auth().signOut().then(function(){
         console.log("Saliendo...");
     })

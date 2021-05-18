@@ -101,10 +101,7 @@ class Scene_nivel1 extends Phaser.Scene {
             if (usuario) {
                 var nombre      = usuario.displayName;
                 console.log(nombre);
-                
                 nombreAlumno.setText(nombre);
-            } else {
-              // No user is signed in.
             }
         });
 
@@ -124,7 +121,7 @@ class Scene_nivel1 extends Phaser.Scene {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
                 gameObject.clearTint();
                 gameObject.setScale(0.8);
-                this.btn_Next.disableInteractive();
+                //this.btn_Next.disableInteractive();
             }
         });
 
@@ -160,7 +157,7 @@ class Scene_nivel1 extends Phaser.Scene {
                 console.log("Ganaste :c");
                 registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Arcus - Sumas");
                 this.scene.stop(this);
-                this.scene.start('Scene_rancking');
+                this.scene.start('Scene_rancking',aciertos,this.data.list.coderank);
             }
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;

@@ -52,6 +52,7 @@ class Scene_loginProfesor extends Phaser.Scene {
             //Para ingresar como profesor
             console.log("Presionaste ingresar");
             singIn();
+            
           }
         },this);
         //var boton = document.getElementById('codigoclase').value;
