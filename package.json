@@ -6,19 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NaomySinHYConY/PickAMath.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/NaomySinHYConY/PickAMath/issues"
-  },
-  "homepage": "https://github.com/NaomySinHYConY/PickAMath#readme",
   "dependencies": {
-    "firebase": "^8.4.1",
-    "phaser": "^3.54.0"
+    "firebase": "^8.6.1",
+    "phaser": "^3.52.0"
   }
 }
