@@ -2,9 +2,10 @@ class Scene_grupos extends Phaser.Scene {
     constructor() {
         super('Scene_grupos'); 
     }
-    
+
     init(){
         console.log('Scene_grupos');
+        mostrarCodigos();
     }
 
     preload() {
@@ -20,12 +21,15 @@ class Scene_grupos extends Phaser.Scene {
         this.load.image('btn_actividades','actividades.png');
         this.load.image('plus','/Botones/plus.png');
         this.load.image('back','back.png');
+        this.load.image('tgrupos','tgrupos.png');
+        this.load.image('pperfil','astro_foto.png');
 
         this.load.audio("bback", "/sonidos/glitch-2.mp3");
+        this.load.html('showCodes', 'txt/showCodes.html');
     }
 
     create() {
-        const keyCodes = Phaser.Input.Keyboard.KeyCodes;
+       const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
         this.musicConf = {
@@ -41,10 +45,14 @@ class Scene_grupos extends Phaser.Scene {
         this.bback = this.sound.add("bback", this.musicConf2);
 
         this.back           = this.add.image(50,120,"back").setInteractive().setName('back').setDepth(2);
-        this.menu           = this.add.image(500,330,"menu").setDepth(1).setScale(1.2); 
+        this.pperfil        = this.add.image(150,250,"pperfil").setDepth(1).setScale(0.85);
         this.agregar        = this.add.image(950,600,"plus").setInteractive().setName('agregar').setDepth(2);
+        this.tgrupos        = this.add.image(640,50,"tgrupos").setDepth(2);
         this.logo           = this.add.image(135,610,"logo").setScale(0.80).setDepth(2);
-        this.btn_actividades = this.add.image(150,300,"btn_actividades").setInteractive().setName('btn_actividades').setDepth(2);
+        this.btn_actividades = this.add.image(150,500,"btn_actividades").setInteractive().setName('btn_actividades').setDepth(2);
+
+        this.showCodes = this.add.dom(450, 500).createFromCache('showCodes');
+        this.showCodes.setDepth(5).setScale(0.90);
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'agregar' || gameObject.name == 'eliminar' || gameObject.name == 'back' || gameObject.name == 'btn_actividades'){
