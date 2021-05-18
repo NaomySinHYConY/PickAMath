@@ -4,7 +4,7 @@ class Scene_multiplicaciones extends Phaser.Scene {
     }
 
     init(code){
-        var categoria = this.add.text(150, 575, 'Please login to play', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
+        var categoria = this.add.text(150, 575, 'Please login to play', { color: "white", fontFamily: 'Sigmar One', fontSize: '20px '});
         categoria.setDepth(5);
         
         var database = firebase.database();
