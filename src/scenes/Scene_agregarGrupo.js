@@ -45,7 +45,7 @@ class Scene_agregarGrupo extends Phaser.Scene {
         this.logo           = this.add.image(190,600,"logo").setScale(0.80).setDepth(2);
         this.cancelarG       = this.add.image(610,600,"cancelar").setInteractive().setName('cancelarG').setDepth(2);
 
-        this.createCodes = this.add.dom(550, 550).createFromCache('createCodes');
+        this.createCodes = this.add.dom(500, 500).createFromCache('createCodes');
         this.createCodes.setDepth(5);
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
@@ -62,7 +62,8 @@ class Scene_agregarGrupo extends Phaser.Scene {
         });
 
         this.btn_claves.on(eventos.POINTER_DOWN, () => {
-            //Corregir acá
+            console.log("Presionaste generar código");
+            crearCodigo();
             this.next.play();
         });
 

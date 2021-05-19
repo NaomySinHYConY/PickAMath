@@ -1,14 +1,19 @@
 .wrapper2 {
     display: grid;
     grid-template-columns: repeat(10, 100px);
-    grid-template-rows: repeat(3,100px);
+    grid-template-rows: repeat(6,100px);
     height: 500px;
     width: 500px;
     grid-gap: 10px;
     grid-template-areas:
-      "a a b b c c d d f f"
-      "g g h h i i j j k k"
-      "l l m m n n o o p p";
+      "a a b b c c d d e e"
+      "a a b b c c d d e e"
+      "f f g g h h i i j j"
+      "f f g g h h i i j j"
+      "k k l l m m n n o o"
+      "k k l l m m n n o o"
+      "p p q q r r s s t t"
+      "p p q q r r s s t t";
   }
   .itemG1 {
     grid-area: a;
@@ -34,7 +39,6 @@
   .itemG8{
     grid-area: h;
   }
-
   .itemG9 {
     grid-area: i;
   }
@@ -58,6 +62,18 @@
   }
   .itemG16{
     grid-area: p;
+  }
+  .itemG17 {
+    grid-area: q;
+  }
+  .itemG18 {
+    grid-area: r;
+  }
+  .itemG19{
+    grid-area: s;
+  }
+  .itemG20{
+    grid-area: t;
   }
 
 .cardG {

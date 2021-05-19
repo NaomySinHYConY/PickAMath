@@ -25,8 +25,23 @@ input[type="password"], input[type="text"], input[type="email"] {
     transition: box-shadow 0.3s;
 }
 
+select{
+    background: linear-gradient(top, #d6d7d7, #dee0e0);
+    border: 1px solid #7d8080;
+    border-radius: 20px;
+    box-shadow: 0 1px #fff;
+    box-sizing: border-box;
+    color: #474343;
+    transition: box-shadow 0.3s;
+}
+
 
 input[type="password"]:focus, input[type="text"]:focus,input[type="email"]:focus {
+    box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.3);
+    outline: 0;
+}
+
+select:focus{
     box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.3);
     outline: 0;
 }

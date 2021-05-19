@@ -17,35 +17,10 @@ function observer(){
            console.log("Hay un usuario activo");
            console.log("Correo: " + email);
            console.log("Verificado(?): " + usuario.emailVerified);
-           redirigir(usuario);
         } else {
           // No user is signed in.
           console.log("No hay un usuario autenticado aún");
         }
-    });
-}
-
-function redirigir(user){
-    var user = user;
-    var id = user.uid;
-    //Buscar el usuario por su id
-    //Buscar cual es su ocupacion para saber si es profesor
-    //Si es profesor verificado,lo llevamos a la escena de los grupos
-    var database = firebase.database();
-    database.ref().child("usuario").child(id).get().then(function(snapshot) {
-        if (snapshot.exists()) {
-            console.log(snapshot.val().employment);
-            var cargo = snapshot.val().employment;
-            if(cargo == "Docente"){
-                
-            }
-        }
-        else 
-        {
-            console.log("No data available");
-        }
-    },this).catch(function(error) {
-        console.error(error);
     });
 }
 

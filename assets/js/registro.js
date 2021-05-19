@@ -215,7 +215,7 @@ function verificarCorreo(nombre, usuario, pass, correo){
             } else {
             // Data saved successfully!
             console.log("Docente registrado exitosamente");
-            alert("Registro exitoso. Verifique su cuenta de correo electrónico y recargue la página");
+            alert("Registro exitoso. Verifique su cuenta de correo electrónico e inicie sesión");
             }
         });
     }).catch(function(error){

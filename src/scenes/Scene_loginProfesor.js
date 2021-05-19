@@ -40,6 +40,12 @@ class Scene_loginProfesor extends Phaser.Scene {
             this.next.play();
         });
 
+        const esDocente = () => {
+          this.scene.stop(this);
+          this.scene.start('Scene_grupos');
+          this.next.play();
+        }  
+
         //Para pasar a la escena del registro
         loginform.addListener('click');
         loginform.on('click', function(event){
@@ -52,8 +58,35 @@ class Scene_loginProfesor extends Phaser.Scene {
             //Para ingresar como profesor
             console.log("Presionaste ingresar");
             singIn();
-            this.scene.stop(this);
-            loginform.setVisible(false);
+            var database = firebase.database();
+            firebase.auth().onAuthStateChanged(function(usuario) {
+                if (usuario) {
+                  var email = usuario.email
+                  console.log("Correo del usuario activo: " + email);
+                  console.log("Verificado(?): " + usuario.emailVerified);
+                  var id = usuario.uid;
+
+                    database.ref().child("usuario").child(id).get().then(function(snapshot) {
+                        if (snapshot.exists()) {
+                            console.log(snapshot.val().employment);
+                            var cargo = snapshot.val().employment;
+                            if(cargo == "Docente"){
+                                esDocente();
+                            }
+                        }
+                        else 
+                        {
+                            console.log("No data available");
+                        }
+                    }).catch(function(error) {
+                        console.error(error);
+                    });
+
+                } else {
+                  // No user is signed in.
+                  console.log("No hay un usuario autenticado aún");
+                }
+            });
           }
         },this);
         

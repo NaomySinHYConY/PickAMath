@@ -5,7 +5,6 @@ class Scene_grupos extends Phaser.Scene {
 
     init(){
         console.log('Scene_grupos');
-        mostrarCodigos();
     }
 
     preload() {
@@ -53,6 +52,72 @@ class Scene_grupos extends Phaser.Scene {
 
         this.showCodes = this.add.dom(550, 300).createFromCache('showCodes');
         this.showCodes.setDepth(5).setScale(0.50);
+        
+        function mostrarCodigos(){
+            var db = firebase.database();
+            var ref = db.ref("grupos");
+
+            var cantDatos = 0;
+            
+            ref.once('value', (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                cantDatos = cantDatos + 1;
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                console.log("Código: " + childKey);
+                console.log("Categoria: " + childData.Categoria);
+
+                var item = "itemG"+cantDatos;
+
+                const divItem = document.createElement("div"); 
+                divItem.className = item; 
+
+                const divCard = document.createElement("div"); 
+                divCard.className = "cardG";
+
+                const divImage = document.createElement("div");
+                divImage.className = "card-image";
+
+                const divText = document.createElement("div");
+                divText.className = "card-textG";
+
+                const h2N = document.createElement('H2');
+                const nombreH2 = document.createTextNode(childKey);
+                h2N.appendChild(nombreH2);
+
+                const pP = document.createElement('p');
+                const puntajeP = document.createTextNode(childData.Categoria);
+                pP.appendChild(puntajeP);
+
+                const divCardStats = document.createElement("div");
+                divCardStats.className = "card-stats";
+
+                const divStat = document.createElement("div");
+                divStat.className = "stat";
+
+                const divValue = document.createElement("div");
+                divValue.className = "value";
+
+                const wrapper2 = document.getElementById("wrapper2");
+                wrapper2.appendChild(divItem);
+
+                //document.getElementById("wrapper").innerHTML= divItem;
+                //document.body.appendChild(divWrapper);
+                //divWrapper.appendChild(divItem);
+
+                divItem.appendChild(divCard);
+                divCard.appendChild(divImage);
+                divCard.appendChild(divText);
+                divText.appendChild(h2N);
+                divText.appendChild(pP);
+                divCardStats.appendChild(divStat);
+                divStat.appendChild(divValue);
+                });
+                console.log("Total de datos: " + cantDatos);
+            });
+        }
+
+        mostrarCodigos();
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'agregar' || gameObject.name == 'eliminar' || gameObject.name == 'back' || gameObject.name == 'btn_actividades'){
@@ -68,22 +133,22 @@ class Scene_grupos extends Phaser.Scene {
         });
 
         this.agregar.on(eventos.POINTER_DOWN, () => {
-            this.scene.stop(this)
+            this.scene.stop(this);
             this.scene.start('Scene_agregarGrupo');
             this.next.play();
         });
 
         this.btn_actividades.on(eventos.POINTER_UP, () => {
-            this.scene.stop(this)
+            this.scene.stop(this);
             this.scene.start('Scene_mapa');
-            //this.next.play();
+            this.next.play();
         });
 
         this.back.on(eventos.POINTER_DOWN, () => {
             signOut();
-            this.scene.stop(this)
+            this.scene.stop(this);
             this.scene.start('Scene_loginProfesor');
-            //this.bback.play();
+            this.bback.play();
         });
 
     }
