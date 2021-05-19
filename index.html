@@ -1,26 +1,36 @@
 <!DOCTYPE html>
     <html lang="es">
     <head>
+        <title>Pick-A-Math</title>
+        <link rel="shortcut icon" href="assets/logo.ico">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Pick-A-Math</title>
-        <style>
-            * {
-                margin: 0px;
-                padding: 0px;
-            }
-            body {
-                background-color: #2c3e50;
-            }
-        </style>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
+        <script src="./node_modules/phaser/dist/phaser.min.js"></script>
+        <script src="./src/main.js" type="module"></script>
+        
+        <link rel="stylesheet" href="assets/CSS/login-alumno.css" type="text/css" media=screen>
+	    <link rel="stylesheet" href="assets/CSS/registro.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="assets/CSS/login-profesor.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="assets/CSS/rank.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="assets/CSS/codes.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="assets/CSS/showCodes.css" type="text/css" media=screen>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+        <script src="assets/js/registro.js"></script>
+        <script src="assets/js/auth.js"></script>
+        <script src="assets/js/codes.js" defer></script>
+        <script src="assets/js/rank.js"></script>
     </head>
     <body>
         
-        <div id="phaser_container">
-            
+        <div id="contenedor">
+            <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
         </div>
-        <script src="./node_modules/phaser/dist/phaser.min.js"></script>
-        <script src="./src/main.js" type="module"></script>
+        
     </body>
     </html>

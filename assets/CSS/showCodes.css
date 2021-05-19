@@ -1,0 +1,104 @@
+.wrapper2 {
+    display: grid;
+    grid-template-columns: repeat(10, 100px);
+    grid-template-rows: repeat(6,100px);
+    height: 500px;
+    width: 500px;
+    grid-gap: 10px;
+    grid-template-areas:
+      "a a b b c c d d e e"
+      "a a b b c c d d e e"
+      "f f g g h h i i j j"
+      "f f g g h h i i j j"
+      "k k l l m m n n o o"
+      "k k l l m m n n o o"
+      "p p q q r r s s t t"
+      "p p q q r r s s t t";
+  }
+  .itemG1 {
+    grid-area: a;
+  }
+  .itemG2 {
+    grid-area: b;
+  }
+  .itemG3{
+    grid-area: c;
+  }
+  .itemG4{
+    grid-area: d;
+  }
+  .itemG5{
+    grid-area: e;
+  }
+  .itemG6{
+    grid-area: f;
+  }
+  .itemG7{
+    grid-area: g;
+  }
+  .itemG8{
+    grid-area: h;
+  }
+  .itemG9 {
+    grid-area: i;
+  }
+  .itemG10 {
+    grid-area: j;
+  }
+  .itemG11{
+    grid-area: k;
+  }
+  .itemG12{
+    grid-area: l;
+  }
+  .itemG13{
+    grid-area: m;
+  }
+  .itemG14{
+    grid-area: n;
+  }
+  .itemG15{
+    grid-area: o;
+  }
+  .itemG16{
+    grid-area: p;
+  }
+  .itemG17 {
+    grid-area: q;
+  }
+  .itemG18 {
+    grid-area: r;
+  }
+  .itemG19{
+    grid-area: s;
+  }
+  .itemG20{
+    grid-area: t;
+  }
+
+.cardG {
+    display: grid;
+    grid-template-columns: 210px;
+    grid-template-rows: 100px 100px 30px;
+    grid-template-areas: "image" "text" "stats";
+  
+    border-radius: 18px;
+    background: white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    text-align: center;
+    
+  
+    transition: 0.5s ease;
+    cursor: pointer;
+   
+  }
+
+  .card-textG p {
+    color: grey;
+    font-size:12px;
+    font-weight: 300;
+  }
+  .card-textG h2 {
+    margin-top:0px;
+    font-size:15px;
+  }

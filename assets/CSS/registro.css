@@ -1,0 +1,22 @@
+.registro{
+    height: 45px;
+    padding-left: 37px;
+    width: 460px;
+    font-size: 20px;
+    margin: 31px 0 0 29px;
+}
+
+.label_reg{
+    font-size: 30px;
+    font-family: 'Sigmar One', cursive;
+    color:#FF8139;
+}
+
+label{
+    display: inline-block;
+    width: 360px;
+}
+
+#formulario{
+    margin: -350px 0 0 29px;
+}
