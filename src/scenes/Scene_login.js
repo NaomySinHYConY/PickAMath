@@ -132,9 +132,6 @@ class Scene_login extends Phaser.Scene {
             this.next.play();
         }        
 
-        var categoria = this.add.text(150, 575, 'Code', { color: 'white', fontFamily: 'Sigmar One', fontSize: '20px '});
-        categoria.setDepth(5);
-
         this.play.on(eventos.POINTER_DOWN, () => {
             var codigoClase = document.getElementById('codigoclase').value;
             console.log(codigoClase);
