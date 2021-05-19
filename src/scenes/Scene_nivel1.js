@@ -102,23 +102,19 @@ class Scene_nivel1 extends Phaser.Scene {
             }
         });
 
-        this.txtNumOportunidades = this.add.text(215, 40, "3", 
-        {fontFamily: 'Sigmar One', fontSize: '20px ', fill: '#FF8139'});
+        this.txtNumOportunidades = this.add.text(215, 35, "8", 
+        {fontFamily: 'Sigmar One', fontSize: '28px ', fill: '#FF8139'});
 
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
-                gameObject.setTint(0xF46036);
                 gameObject.setScale(0.9);
                 this.hoverSoundResp.play();
-                this.btn_Next.setInteractive();
             }
         });
         this.input.on(eventos.GAMEOBJECT_OUT, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
-                gameObject.clearTint();
                 gameObject.setScale(0.8);
-                //this.btn_Next.disableInteractive();
             }
         });
 
@@ -137,6 +133,24 @@ class Scene_nivel1 extends Phaser.Scene {
             });
         });
 
+        this.btn_Resp1.on(eventos.POINTER_DOWN, () => {
+            this.btn_Resp1.setTint(0xF46036);
+            this.btn_Resp2.clearTint();
+            this.btn_Resp3.clearTint();
+        });
+
+        this.btn_Resp2.on(eventos.POINTER_DOWN, () => {
+            this.btn_Resp1.clearTint();
+            this.btn_Resp2.setTint(0xF46036);
+            this.btn_Resp3.clearTint();
+        });
+
+        this.btn_Resp3.on(eventos.POINTER_DOWN, () => {
+            this.btn_Resp1.clearTint();
+            this.btn_Resp2.clearTint();
+            this.btn_Resp3.setTint(0xF46036);
+        });
+
         this.btn_Next.on(eventos.POINTER_OVER,  () => 
         {  
             this.hoverSound.play();
@@ -150,13 +164,18 @@ class Scene_nivel1 extends Phaser.Scene {
         this.btn_Next.on(eventos.POINTER_DOWN, () => 
         {
             this.nextSound.play();
-            if(aciertos == 9){
-                console.log("Ganaste :c");
+            this.respuestas.children.iterate( (r) => {
+                r.clearTint();
+                r.setScale(0.8);   
+            });
+            if(aciertos == 10){
+                console.log("Ganaste c:");
+                console.log("Codigo desde Scene_nivel1: " + this.data.list.coderank);
                 registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Arcus - Sumas");
                 this.scene.stop(this);
                 this.scene.start('Scene_rancking',{score: aciertos,code: this.data.list.coderank});
             }
-            if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
+            if(flag == true && aciertos <= 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;
                 console.log("Aciertos: " + aciertos);
                 this.operacion.setX(527);

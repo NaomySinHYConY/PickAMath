@@ -140,24 +140,19 @@ class Scene_restas extends Phaser.Scene {
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
-                //gameObject.setTint(0x083584);
-                gameObject.setTint(0x3917AC);
                 gameObject.setScale(0.9);
                 this.hoverSoundResp.play();
-                this.btn_Next.setInteractive();
             }
         });
         this.input.on(eventos.GAMEOBJECT_OUT, (pointer, gameObject) => {
             if(gameObject.name == 'Resp1' || gameObject.name == 'Resp2' || gameObject.name == 'Resp3'){
-                gameObject.clearTint();
                 gameObject.setScale(0.8);
-                //this.btn_Next.disableInteractive();
             }
         });
 
         this.respuestas.children.iterate((resp) =>{
             resp.on(eventos.POINTER_DOWN, () => {
-                resp.setScale(0.7);
+                resp.setScale(0.9);
                 clicSound.play();
                 if(resp.state == "Correcta"){
                     flag = true;
@@ -168,6 +163,24 @@ class Scene_restas extends Phaser.Scene {
                 }
                 this.btn_Next.setInteractive();
             });
+        });
+
+        this.btn_Resp1.on(eventos.POINTER_DOWN, () => {
+            this.btn_Resp1.setTint(0x3917AC);
+            this.btn_Resp2.clearTint();
+            this.btn_Resp3.clearTint();
+        });
+
+        this.btn_Resp2.on(eventos.POINTER_DOWN, () => {
+            this.btn_Resp1.clearTint();
+            this.btn_Resp2.setTint(0x3917AC);
+            this.btn_Resp3.clearTint();
+        });
+
+        this.btn_Resp3.on(eventos.POINTER_DOWN, () => {
+            this.btn_Resp1.clearTint();
+            this.btn_Resp2.clearTint();
+            this.btn_Resp3.setTint(0x3917AC);
         });
 
         this.btn_Next.on(eventos.POINTER_OVER,  () => 
@@ -183,13 +196,17 @@ class Scene_restas extends Phaser.Scene {
         this.btn_Next.on(eventos.POINTER_DOWN, () => 
         {
             this.nextSound.play();
-            if(aciertos == 9){
+            this.respuestas.children.iterate( (r) => {
+                r.clearTint();
+                r.setScale(0.8);   
+            });
+            if(aciertos == 10){
                 console.log("Ganaste c:");
                 registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Mudi - Restas");
                 this.scene.stop(this);
                 this.scene.start('Scene_rancking',{score: aciertos,code: this.data.list.coderank});
             }
-            if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
+            if(flag == true && aciertos <= 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;
                 console.log("Aciertos: " + aciertos);
                 this.operacion.setX(525);
