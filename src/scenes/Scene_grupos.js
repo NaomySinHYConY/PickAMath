@@ -51,8 +51,8 @@ class Scene_grupos extends Phaser.Scene {
         this.logo           = this.add.image(135,610,"logo").setScale(0.80).setDepth(2);
         this.btn_actividades = this.add.image(150,500,"btn_actividades").setInteractive().setName('btn_actividades').setDepth(2);
 
-        this.showCodes = this.add.dom(450, 500).createFromCache('showCodes');
-        this.showCodes.setDepth(5).setScale(0.90);
+        this.showCodes = this.add.dom(550, 300).createFromCache('showCodes');
+        this.showCodes.setDepth(5).setScale(0.50);
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'agregar' || gameObject.name == 'eliminar' || gameObject.name == 'back' || gameObject.name == 'btn_actividades'){

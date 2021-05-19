@@ -19,6 +19,8 @@ class Scene_agregarGrupo extends Phaser.Scene {
         this.load.image('tnuevoGrupo','/Grupo/tnuevoGrupo.png');
 
         this.load.audio("bback", "/sonidos/glitch-2.mp3");
+
+        this.load.html('createCodes', 'txt/createCode.html');
     }
 
     create() {
@@ -38,11 +40,13 @@ class Scene_agregarGrupo extends Phaser.Scene {
         this.bback = this.sound.add("bback", this.musicConf2);
 
         this.back           = this.add.image(50,600,"back").setInteractive().setName('back').setDepth(2);
-        this.formularioGrupo= this.add.image(500,330,"formularioGrupo").setDepth(1).setScale(1.2); 
         this.btn_claves        = this.add.image(830,600,"btn_claves").setInteractive().setName('btn_claves').setDepth(2);
-        this.tnuevoGrupo  = this.add.image(700,45,"tnuevoGrupo").setDepth(2);
+        this.tnuevoGrupo  = this.add.image(500,45,"tnuevoGrupo").setDepth(2);
         this.logo           = this.add.image(190,600,"logo").setScale(0.80).setDepth(2);
         this.cancelarG       = this.add.image(610,600,"cancelar").setInteractive().setName('cancelarG').setDepth(2);
+
+        this.createCodes = this.add.dom(550, 550).createFromCache('createCodes');
+        this.createCodes.setDepth(5);
 
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
             if(gameObject.name == 'btn_claves' || gameObject.name == 'cancelarG' || gameObject.name == 'back'){
@@ -58,9 +62,7 @@ class Scene_agregarGrupo extends Phaser.Scene {
         });
 
         this.btn_claves.on(eventos.POINTER_DOWN, () => {
-            this.scene.stop(this);
             //Corregir acá
-            this.scene.start('Scene_grupos');
             this.next.play();
         });
 

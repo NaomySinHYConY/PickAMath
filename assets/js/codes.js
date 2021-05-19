@@ -5,6 +5,7 @@ function crearCodigo(){
 
     //Aqui va el espacio para generar el codigo 
     var aleatorio = Math.random();
+
     
     firebase.auth().onAuthStateChanged(function(usuario) {
         if (usuario) {
@@ -45,19 +46,19 @@ function mostrarCodigos(){
           console.log("Código: " + childKey);
           console.log("Categoria: " + childData.Categoria);
 
-          var item = "item"+cantDatos;
+          var item = "itemG"+cantDatos;
 
           const divItem = document.createElement("div"); 
           divItem.className = item; 
 
           const divCard = document.createElement("div"); 
-          divCard.className = "card";
+          divCard.className = "cardG";
 
           const divImage = document.createElement("div");
           divImage.className = "card-image";
 
           const divText = document.createElement("div");
-          divText.className = "card-text";
+          divText.className = "card-textG";
 
           const h2N = document.createElement('H2');
           const nombreH2 = document.createTextNode(childKey);
@@ -76,8 +77,8 @@ function mostrarCodigos(){
           const divValue = document.createElement("div");
           divValue.className = "value";
 
-          const wrapper = document.getElementById("wrapper");
-          wrapper.appendChild(divItem);
+          const wrapper2 = document.getElementById("wrapper2");
+          wrapper2.appendChild(divItem);
 
           //document.getElementById("wrapper").innerHTML= divItem;
           //document.body.appendChild(divWrapper);

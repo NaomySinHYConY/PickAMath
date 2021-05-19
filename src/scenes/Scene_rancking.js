@@ -50,8 +50,8 @@ class Scene_rancking extends Phaser.Scene {
         this.ufo            = this.add.image(910,80,"ufo").setScale(0.8).setDepth(5);
         this.salir          = this.add.image(80,120,"exit").setInteractive().setName('exit').setScale(0.15).setDepth(5);
 
-        this.ranktarget = this.add.dom(425, 500).createFromCache('ranktarget');
-        this.ranktarget.setDepth(5).setScale(0.90);
+        this.ranktarget = this.add.dom(550, 400).createFromCache('ranktarget');
+        this.ranktarget.setDepth(5).setScale(0.60);
 
         this.salir.on(eventos.POINTER_DOWN, () =>{
             this.exitSound.play();
