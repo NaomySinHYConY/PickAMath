@@ -21,6 +21,7 @@ class Scene_login extends Phaser.Scene {
     }
 
     create() {
+        
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 

@@ -25,8 +25,8 @@ class Scene_nivel1 extends Phaser.Scene {
     preload() {
         console.log('Scene_nivel1');
         this.load.setPath('./assets/nivel1');
-        this.load.image(['fondo_nivel1', 'titulo', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Mush', 
-        'speech', 'btnResp', 'Intentos', 'planet', 'next2']);
+        this.load.image(['fondo_nivel1', 'titulo1', 'tituloPAM', 'IntentosCuadro', 'EliminaEnemigos', 'Mush', 
+        'speech', 'btnResp', 'Intentos', 'planet1', 'next2']);
         this.load.image('astro', '../astro.png');
         this.load.audio("nextSound", '../sonidos/glitch-1.mp3');
         this.load.audio("clicSound", '../sonidos/clic.mp3');
@@ -71,9 +71,9 @@ class Scene_nivel1 extends Phaser.Scene {
 
         this.fondo = this.add.image(0, 0, 'fondo_nivel1', 1).setOrigin(0);
         this.intentosCuadro = this.add.image(55, 20, 'IntentosCuadro').setOrigin(0).setScale(0.8);
-        this.titulo = this.add.image(500, 30, 'titulo').setScale(0.6);
+        this.titulo = this.add.image(500, 30, 'titulo1').setScale(0.6);
         this.tituloPAM = this.add.image(500, 58, 'tituloPAM').setScale(0.65);
-        this.planet = this.add.image(0, 485, 'planet').setOrigin(0);
+        this.planet = this.add.image(0, 485, 'planet1').setOrigin(0);
         this.letrero = this.add.image(750, 10, 'EliminaEnemigos').setOrigin(0).setScale(0.75);
         this.mush = this.add.image(720, 0, 'Mush').setOrigin(0);
         this.speech = this.add.image(500, 260, 'speech').setOrigin(0);
