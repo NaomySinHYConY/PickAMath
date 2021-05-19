@@ -163,7 +163,7 @@ class Scene_nivel3 extends Phaser.Scene{
                                 console.log("Insertar puntuación desde Scene_nivel3: " + this.data.list.coderank);
                                 registrarPuntuacion(this.data.list.coderank, 10, "Planeta Narmú - Figuras");
                                 this.scene.stop(this);
-                                this.scene.start('Scene_rancking',10,this.data.list.coderank);
+                                this.scene.start('Scene_rancking',{score: 10,code: this.data.list.coderank});
                             }, [], this);
                         }
                     }

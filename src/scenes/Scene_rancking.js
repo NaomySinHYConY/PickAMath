@@ -3,19 +3,17 @@ class Scene_rancking extends Phaser.Scene {
         super('Scene_rancking'); 
     }
 
-    init(score,codigo){
-        var puntaje = this.add.text(296, 195, 'Tu puntaje: ' + score, { color: 'white', fontFamily: 'Sigmar One', fontSize: '50px '});
-        puntaje.setDepth(5);
-        this.data.set('codeRank', codigo);
-        puntajes(codigo);
-        console.log("Código del juego desde Scene_rancking: " + this.data.list.codeRank);
+    init(data){
+        this.score = data.score;
+        this.codigo = data.code;
+        console.log("Puntaje desde la escena del ranking: " + this.score);
+        console.log("Código del juego desde Scene_rancking: " + this.codigo);
     }
 
     preload() {
         console.log('Scene_rancking');
         this.load.setPath('./assets/');
 
-        //this.load.image('galaxia','galaxia.png');
         this.load.image(['logo', 'alien_rancking', 'strangePlanet', 'ufo']);
         this.load.image('exit', '/Botones/eliminar.png');
         this.load.image('fondoRan','/fondos/46270.jpg');
@@ -28,7 +26,7 @@ class Scene_rancking extends Phaser.Scene {
     create() {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
-
+        
         this.musicConf1 = {
             volume: 0.7,
             loop: false
@@ -51,7 +49,81 @@ class Scene_rancking extends Phaser.Scene {
         this.salir          = this.add.image(80,120,"exit").setInteractive().setName('exit').setScale(0.15).setDepth(5);
 
         this.ranktarget = this.add.dom(550, 400).createFromCache('ranktarget');
-        this.ranktarget.setDepth(5).setScale(0.60);
+        this.ranktarget.setDepth(6).setScale(0.60);
+
+        var puntaje = this.add.text(296, 195, 'Tu puntaje: ' + this.score, { color: 'white', fontFamily: 'Sigmar One', fontSize: '50px '});
+        puntaje.setDepth(5);
+
+        function puntajes(codigo){
+            console.log("Código del juego desde Puntajes: " + codigo);
+            var db = firebase.database();
+            var ref = db.ref("puntuacion/"+codigo);
+        
+            var cantDatos = 0;
+            
+            ref.once('value', (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                  cantDatos = cantDatos + 1;
+                  var childKey = childSnapshot.key;
+                  var childData = childSnapshot.val();
+                  console.log("Llave: " + childKey);
+                  console.log("Nombre: " + childData.nombre);
+                  console.log("Puntaje: " + childData.puntaje);
+        
+                  var item = "item"+cantDatos;
+        
+                  //const divWrapper = document.createElement("div"); 
+                  //divWrapper.className = "wrapper"; 
+        
+                  const divItem = document.createElement("div"); 
+                  divItem.className = item; 
+        
+                  const divCard = document.createElement("div"); 
+                  divCard.className = "card";
+        
+                  const divImage = document.createElement("div");
+                  divImage.className = "card-image";
+        
+                  const divText = document.createElement("div");
+                  divText.className = "card-text";
+        
+                  const h2N = document.createElement('H2');
+                  const nombreH2 = document.createTextNode(childData.nombre);
+                  h2N.appendChild(nombreH2);
+        
+                  const pP = document.createElement('p');
+                  const puntajeP = document.createTextNode(childData.puntaje);
+                  pP.appendChild(puntajeP);
+        
+                  const divCardStats = document.createElement("div");
+                  divCardStats.className = "card-stats";
+        
+                  const divStat = document.createElement("div");
+                  divStat.className = "stat";
+        
+                  const divValue = document.createElement("div");
+                  divValue.className = "value";
+        
+                  const wrapper = document.getElementById("wrapper");
+                  wrapper.appendChild(divItem);
+        
+                  //document.getElementById("wrapper").innerHTML= divItem;
+                  //document.body.appendChild(divWrapper);
+                  //divWrapper.appendChild(divItem);
+        
+                  divItem.appendChild(divCard);
+                  divCard.appendChild(divImage);
+                  divCard.appendChild(divText);
+                  divText.appendChild(h2N);
+                  divText.appendChild(pP);
+                  divCardStats.appendChild(divStat);
+                  divStat.appendChild(divValue);
+                });
+                console.log("Total de datos: " + cantDatos);
+            });
+        }
+
+        puntajes(this.codigo);
 
         this.salir.on(eventos.POINTER_DOWN, () =>{
             this.exitSound.play();

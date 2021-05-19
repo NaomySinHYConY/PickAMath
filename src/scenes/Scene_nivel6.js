@@ -150,7 +150,7 @@ class Scene_nivel6 extends Phaser.Scene{
                     console.log("Insertar puntuación desde Scene_nivel6: " + this.data.list.coderank);
                     registrarPuntuacion(this.data.list.coderank, 10, "Planeta Plusalia - Fracciones propias");
                     this.scene.stop(this);
-                    this.scene.start('Scene_rancking',10,this.data.list.coderank);
+                    this.scene.start('Scene_rancking',{score: 10,code: this.data.list.coderank});
                 }       
             }
             else{

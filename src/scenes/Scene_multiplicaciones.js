@@ -153,10 +153,9 @@ class Scene_multiplicaciones extends Phaser.Scene {
             this.nextSound.play();
             if(aciertos == 9){
                 console.log("Ganaste c:");
-                console.log("Codigo desde Scene_multiplicaciones: " + this.data.list.coderank);
                 registrarPuntuacion(this.data.list.coderank, aciertos, "Planeta Teyvat - Multiplicaciones");
                 this.scene.stop(this);
-                this.scene.start('Scene_rancking',aciertos,this.data.list.coderank);
+                this.scene.start('Scene_rancking',{score: aciertos,code: this.data.list.coderank});
             }
             if(flag == true && aciertos < 9 && intentos != 0){ //respuesta correcta
                 aciertos += 1;

@@ -146,10 +146,9 @@ class Scene_nivel7 extends Phaser.Scene{
                     //TODO: Guardar puntuación y volver
                     this.final.setVisible(true);
                     this.final.setDepth(21);
-                    console.log("Insertar puntuación desde Scene_nivel7: " + this.data.list.coderank);
                     registrarPuntuacion(this.data.list.coderank, 10, "Planeta Carvus - Fracciones impropias");
                     this.scene.stop(this);
-                    this.scene.start('Scene_rancking',10,this.data.list.coderank);
+                    this.scene.start('Scene_rancking',{score: 10,code: this.data.list.coderank});
                 }       
             }
             else{
