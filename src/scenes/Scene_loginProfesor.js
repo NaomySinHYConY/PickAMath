@@ -72,6 +72,8 @@ class Scene_loginProfesor extends Phaser.Scene {
                             var cargo = snapshot.val().employment;
                             if(cargo == "Docente"){
                                 esDocente();
+                            }else{
+                              alert("Lo sentimos, tu cuenta no está registrada o no eres docente");
                             }
                         }
                         else 
