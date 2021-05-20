@@ -36,21 +36,21 @@ function crearCodigo(){
                             // The write failed...
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            alert(errorMessage);
+                            alert("ERROR: "+ errorMessage);
                         } else {
-                            console.log("Código guardado correctamente");
+                            alert("Código "+ nuevoCodigo +" registrado correctamente");
                         }
                     });
                 }
                 else {
-                console.log("No se encontró al docente");
+                alert("No se encontró al docente");
                 }
             }).catch(function(error) {
                 console.error(error);
             });
            
         } else {
-          console.log("No hay un usuario en sesión");
+          alert("No hay un usuario en sesión");
         }
     });
 }
